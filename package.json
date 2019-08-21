@@ -1,0 +1,29 @@
+{
+  "name": "webtabs",
+  "version": "0.1.0-alpha",
+  "description": "Index tabs for web elements. Mark any element(s).",
+  "main": "src/webtabs.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "browser-sync start --server \"test\" --files \"test\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/pmrt/webtabs"
+  },
+  "keywords": [
+    "tabs",
+    "index",
+    "tabs",
+    "highlight",
+    "webtabs"
+  ],
+  "author": "Pedro J. Martínez Martínez",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.26.7"
+  }
+}

@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "browser-sync start --server \"test\" --files \"test\""
   },
   "repository": {
@@ -24,6 +24,7 @@
   "author": "Pedro J. Martínez Martínez",
   "license": "MIT",
   "devDependencies": {
-    "browser-sync": "^2.26.7"
+    "browser-sync": "^2.26.7",
+    "jest": "^24.9.0"
   }
 }

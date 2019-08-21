@@ -25,7 +25,6 @@
   "author": "Pedro J. Martínez Martínez",
   "license": "MIT",
   "devDependencies": {
-    "browser-sync": "^2.26.7",
     "filemanager-webpack-plugin": "^2.0.5",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",

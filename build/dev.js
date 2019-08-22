@@ -8,10 +8,14 @@ const name = 'webtabs';
 
 module.exports = {
     context: path.join(rootPath, '/test'),
-    entry: path.join(rootPath, `/src/${name}.js`),
+    entry: {
+        [name]: path.join(rootPath, `/src/${name}.js`),
+        // main.js simulates a developer configuring webtabs.js
+        "main": path.join(rootPath, '/test/static/main.js'),
+    },
     devtool: 'eval',
     output: {
-        filename: `${name}.js`,
+        filename: '[name].js',
         path: distPath,
     },
     mode: 'development',

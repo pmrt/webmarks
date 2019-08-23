@@ -1,19 +1,49 @@
-export class Webtabs {
-    constructor(opts) {
-        this.opts = opts;
-        onReady(this._init, this);
-    }
+const defaultCfg = {
 
-    _init() {
-        const elems = getElems(this.opts.el);
-        // TODO - 2. e2e test this
-        createTabs(elems);
-    }
 }
 
-export function createTabs(elems) {
-    const tops = getTabsTops(elems);
-    // TODO - 1. create tabs with the given tops
+export class Webtabs {
+    constructor(tabsOpts) {
+        try {
+            this.setupOpts(tabsOpts);
+        } catch(err) {
+            console.error(err);
+        }
+        onReady(this.createTabs, this);
+    }
+
+    /*
+    * setupOpts setups _getTabOpts and _elems for future use based on the first element of tabsOpts
+    *
+    * _elems contains all the HTMLElements which the tabs will mark. _elems can be a HTMLCollection.
+    *
+    * _getTabsOpts(i) is a dynamic function which will retrieve the options for the element with index `i`.
+    * The function will be setup so that it'll return the default config for all the elements (if no custom
+    * config is provided) or the provided custom options for the corresponding index.
+    */
+    setupOpts(tabsOpts) {
+        this._tabsOpts = tabsOpts;
+
+        let peek = tabsOpts[0];
+        if (isHTMLElement(peek)) {
+            this._getTabOpts = () => defaultCfg;
+            this._elems = tabsOpts;
+        } else if (isObject(peek)) {
+            this._getTabOpts = (i) => this._tabsOpts[i];
+            this._elems = tabsOpts.map(opts => opts.el);
+        } else {
+            throw new TypeError(JSON.stringify(peek) + " is neither an object nor an HTMLElement");
+        }
+    }
+
+    // TODO - 2. e2e test this
+    createTabs() {
+        // TODO - 1. create tabs with the given tops
+        const tops = getTabsTops(this._elems);
+        each(tops, (i, tabTop) => {
+            let opts = this._getTabOpts(i);
+        });
+    }
 }
 
 // cache elements fixed tops for future use as they will never change. Whenever the visible window
@@ -58,10 +88,6 @@ export function intrp(range, newRange, v) {
     return ((v - x) * (y2 - x2) / (y - x)) + x2
 }
 
-export function getElems(selector) {
-    return document.getElementsByClassName(selector);
-}
-
 /*
 * onReady adds a callback `cb` to be triggered if document is ready. It'll call the callback as `self`
 * (optional) with the given `args` (optional).
@@ -81,10 +107,23 @@ export function onReady(cb, self, ...args) {
     }
 }
 
-export function each(arr, cb) {
+export function each(arr, cb, self) {
     for (let i = 0; i < arr.length; i++) {
-        cb(i, arr[i], arr);
+        cb.call(self, i, arr[i], arr);
     }
+}
+
+/*
+* isObject checks if a given `obj` is an object. Array and functions return 'false' as they have
+* length >= 0.
+*/
+export function isObject(obj) {
+    let t = typeof obj;
+    return t === 'object' && !!obj && obj.length === undefined;
+}
+
+export function isHTMLElement(obj) {
+    return obj instanceof Element;
 }
 
 // expose Webtabs.js

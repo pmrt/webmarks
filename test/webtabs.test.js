@@ -2,9 +2,11 @@ import {
     onReady,
     intrp,
     getTabsTops,
-    getElems,
     elemTops,
+    isObject,
+    isHTMLElement,
 } from '../src/webtabs';
+import { expectAll } from './helpers';
 
 describe('callbacks are triggered with onReady', () => {
     afterAll(() => {
@@ -47,8 +49,8 @@ describe('callbacks are triggered with onReady', () => {
 
 describe('interpolates elements tops between ranges', () => {
     test('intrp interpolates the given value between ranges', () => {
-        const fixtures = {
-            datasets: [
+        expectAll({
+            dataset: [
                 [ [0, 10], [0, 100], 1 ],
                 [ [0, 1280], [0, 480], 200],
                 [ [1, 50], [0, 100], 50],
@@ -56,13 +58,10 @@ describe('interpolates elements tops between ranges', () => {
                 [ [0, 10], [0, 100], 2 ],
             ],
             results: [10, 75, 100, 0, 20],
-        };
-
-        fixtures.datasets.forEach((set, i) => {
-            let want = fixtures.results[i];
+        }, (set, want) => {
             let got = intrp(...set);
             expect(got).toBe(want);
-        });
+        })
     });
 });
 
@@ -109,7 +108,7 @@ describe('calculate tabs tops', () => {
     });
 
     test('get tabs tops = [1, 2, 3] and cache the element tops', () => {
-        const elems = getElems('test');
+        const elems = document.getElementsByClassName('test');
         // cache should be empty
         expect(elemTops).toEqual([]);
         const got = getTabsTops(elems);
@@ -120,12 +119,44 @@ describe('calculate tabs tops', () => {
     });
 
     test('getTabsProps uses cache', () => {
-        const elems = getElems('test');
+        const elems = document.getElementsByClassName('test');
         expect(elemTops).toEqual([10,20,30]);
         // override cache
         elemTops[2] = 50;
         const got = getTabsTops(elems)
         const want = [1, 2, 5];
         expect(got).toEqual(want);
+    });
+});
+
+describe('isObject checks for objects', () => {
+    test('returns false for non-objects and true for objects', () => {
+        expectAll({
+            dataset: [function(){}, ()=>{}, null, undefined, false, true, {}, {test:1}, [], [1], NaN],
+            results: [false, false, false, false, false, false, true, true, false, false, false],
+        }, (set, want) => {
+            let got = isObject(set);
+            expect(got).toStrictEqual(want);
+        })
+    });
+});
+
+describe('isHTMLElement checks for Element objects', () => {
+    afterAll(() => {
+        document.body.innerHTML = '';
+    })
+
+    test('returns false for objects wich doesn\'t implement DOM methods', () => {
+        document.body.innerHTML = '<div id="test" class="test"></div>';
+        const el = document.getElementById('test');
+        const htmlCollection = document.getElementsByClassName('test');
+
+        expectAll({
+            dataset: [{}, {a:3}, el, [], htmlCollection, htmlCollection[0]],
+            results: [false, false, true, false, false, true],
+        }, (set, want) => {
+            let got = isHTMLElement(set);
+            expect(got).toStrictEqual(want);
+        });
     });
 });

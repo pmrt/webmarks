@@ -1,3 +1,3 @@
-const wt = new Webtabs({
-    el: ['parent'],
-});
+let elems = document
+    .getElementsByClassName('parent');
+const wt = new Webtabs(elems);

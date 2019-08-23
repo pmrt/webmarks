@@ -35,3 +35,19 @@ export function isObject(obj) {
 export function isHTMLElement(obj) {
     return obj instanceof Element;
 }
+
+export function injectCSS(styles) {
+    const s = document.createElement('style');
+    s.type = "text/css";
+    s.innerText = styles;
+    document.head.appendChild(s);
+}
+
+export function pageHeight() {
+    let body = document.body,
+        html = document.documentElement;
+    return Math.max(
+        body.scrollHeight, body.offsetHeight, html.clientHeight,
+        html.scrollHeight, html.offsetHeight
+    );
+}

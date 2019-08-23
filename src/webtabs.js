@@ -1,12 +1,18 @@
-import { onReady, each, isObject, isHTMLElement } from './helpers';
+import { onReady, each, isObject, isHTMLElement, injectCSS } from './helpers';
 import { getTabsTops } from './tabs';
 
 const defaultCfg = {
 
 }
 
+
+const styles =
+'.webtabs{position:fixed;top:0;right:0;bottom:0;}' +
+'.webtab{position:absolute;background:#8667ff;right:0;}';
+
 export class Webtabs {
     constructor(tabsOpts) {
+        injectCSS(styles);
         try {
             this.setupOpts(tabsOpts);
         } catch(err) {
@@ -41,10 +47,20 @@ export class Webtabs {
 
     // TODO - 2. e2e test this
     createTabs() {
-        // TODO - 1. create tabs with the given tops
+        // perform the top calculations
         const tops = getTabsTops(this._elems);
+
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('webtabs');
+        document.body.insertBefore(wrapper, document.body.firstChild);
+
+        // TODO - remove tabOpts and add a hook to this loop
         each(tops, (i, tabTop) => {
             let opts = this._getTabOpts(i);
+            const tab = document.createElement('div');
+            tab.classList.add('webtab');
+            wrapper.appendChild(tab);
+            tab.style.top = tabTop + 'px';
         });
     }
 }

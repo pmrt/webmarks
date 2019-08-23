@@ -1,5 +1,10 @@
+import { pageHeight } from './helpers';
+
+// h caches the pageHeight to avoid further calculations
+const h = pageHeight();
+
 export function intrpElemTop(elemTop) {
-    return intrp([0, document.body.clientHeight], [0, window.innerHeight], elemTop);
+    return intrp([0, h], [0, window.innerHeight], elemTop);
 }
 
 /*
@@ -11,5 +16,6 @@ export function intrpElemTop(elemTop) {
 export function intrp(range, newRange, v) {
     const [ x, y ] = range;
     const [ x2, y2 ] = newRange;
+
     return ((v - x) * (y2 - x2) / (y - x)) + x2
 }

@@ -4,13 +4,13 @@ const distPath = path.join(rootPath, '/dist');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const name = 'webtabs';
+const name = 'webmarks';
 
 module.exports = {
     context: path.join(rootPath, '/test'),
     entry: {
         [name]: path.join(rootPath, `/src/${name}.js`),
-        // main.js simulates a developer configuring webtabs.js
+        // main.js simulates a developer configuring webmarks.js
         "main": path.join(rootPath, '/test/static/main.js'),
     },
     devtool: 'eval',

@@ -18,7 +18,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/src/webtabs.js"
+            "program": "${workspaceFolder}/src/webmarks.js"
         }
     ]
 }

@@ -1,8 +1,8 @@
 {
-  "name": "webtabs",
+  "name": "webmarks",
   "version": "0.1.0-alpha",
   "description": "Index tabs for web elements. Mark any element(s).",
-  "main": "src/webtabs.js",
+  "main": "src/webmarks.js",
   "directories": {
     "test": "test"
   },
@@ -13,14 +13,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/pmrt/webtabs"
+    "url": "github.com/pmrt/webmarks"
   },
   "keywords": [
-    "tabs",
-    "index",
+    "marks",
     "tabs",
     "highlight",
-    "webtabs"
+    "webmarks"
   ],
   "author": "Pedro J. Martínez Martínez",
   "license": "MIT",

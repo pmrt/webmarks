@@ -1,7 +1,7 @@
 const path = require('path');
 const rootPath = path.join(__dirname, '../');
 
-const name = 'webtabs';
+const name = 'webmarks';
 
 const entryPath = path.join(rootPath, `/src/${name}.js`);
 const distPath = path.join(rootPath, '/dist');
@@ -19,7 +19,7 @@ module.exports = {
         new FileManagerPlugin({
             onEnd: {
                 copy: [
-                    { source: path.join(distPath, 'webtabs.min.js'), destination: path.join(rootPath, '/test/webtabs.js') }
+                    { source: path.join(distPath, 'webmarks.min.js'), destination: path.join(rootPath, '/test/webmarks.js') }
                 ]
             }
         })

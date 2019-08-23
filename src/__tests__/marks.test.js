@@ -1,9 +1,9 @@
 import {
-    getTabsTops,
+    getMarksTops,
     elemTops,
-} from '../tabs';
+} from '../marks';
 
-describe('calculate tabs tops', () => {
+describe('calculate marks tops', () => {
     beforeAll(() => {
         document.head.innerHTML =
             '<style>' +
@@ -45,23 +45,23 @@ describe('calculate tabs tops', () => {
         elemTops[2] = undefined;
     });
 
-    test('get tabs tops = [1, 2, 3] and cache the element tops', () => {
+    test('get marks tops = [1, 2, 3] and cache the element tops', () => {
         const elems = document.getElementsByClassName('test');
         // cache should be empty
         expect(elemTops).toEqual([]);
-        const got = getTabsTops(elems);
+        const got = getMarksTops(elems);
         const want = [1, 2, 3];
         expect(got).toEqual(want);
         // cache shouldn't be empty
         expect(elemTops).toEqual([10,20,30]);
     });
 
-    test('getTabsProps uses cache', () => {
+    test('getMarksProps uses cache', () => {
         const elems = document.getElementsByClassName('test');
         expect(elemTops).toEqual([10,20,30]);
         // override cache
         elemTops[2] = 50;
-        const got = getTabsTops(elems)
+        const got = getMarksTops(elems)
         const want = [1, 2, 5];
         expect(got).toEqual(want);
     });

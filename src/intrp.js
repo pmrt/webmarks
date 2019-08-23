@@ -1,10 +1,12 @@
 import { pageHeight } from './helpers';
 
-// h caches the pageHeight to avoid further calculations
-const h = pageHeight();
+// page caches the needed page sizes to avoid further calculations
+export const page = {
+    height: pageHeight(),
+}
 
 export function intrpElemTop(elemTop) {
-    return intrp([0, h], [0, window.innerHeight], elemTop);
+    return intrp([0, page.height], [0, window.innerHeight], elemTop);
 }
 
 /*

@@ -2,6 +2,9 @@ import {
     getMarksTops,
     elemTops,
 } from '../marks';
+import {
+    page,
+} from '../intrp';
 
 describe('calculate marks tops', () => {
     beforeAll(() => {
@@ -16,10 +19,8 @@ describe('calculate marks tops', () => {
             '<div id="third" class="test"></div>';
         window.innerHeight = 100;
         window.scrollY = 0;
-        Object.defineProperty(document.body, "clientHeight", {
-        get() { return 1000; },
-        configurable: true,
-        });
+        page.height = 1000;
+
         document.getElementById('first').getBoundingClientRect = () => {
             return { top: 10 }
         };
@@ -36,10 +37,8 @@ describe('calculate marks tops', () => {
         document.head.innerHTML =
         document.body.innerHTML = '';
         window.innerHeight = 0;
-        Object.defineProperty(document.body, "clientHeight", {
-          get() { return 0; },
-          configurable: true,
-        });
+        page.height = 0;
+
         elemTops[0] = undefined;
         elemTops[1] = undefined;
         elemTops[2] = undefined;
@@ -49,6 +48,7 @@ describe('calculate marks tops', () => {
         const elems = document.getElementsByClassName('test');
         // cache should be empty
         expect(elemTops).toEqual([]);
+        // TODO - simulate pageHeight
         const got = getMarksTops(elems);
         const want = [1, 2, 3];
         expect(got).toEqual(want);

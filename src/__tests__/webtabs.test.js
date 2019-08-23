@@ -5,9 +5,10 @@ import {
     elemTops,
     isObject,
     isHTMLElement,
-} from '../src/webtabs';
-import { expectAll } from './helpers';
+} from '../webtabs';
+import { expectAll } from '../../test/helpers';
 
+onReady
 describe('callbacks are triggered with onReady', () => {
     afterAll(() => {
         // readyState getter reset

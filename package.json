@@ -1,6 +1,6 @@
 {
   "name": "webmarks",
-  "version": "0.1.0-alpha",
+  "version": "0.1.0",
   "description": "Index tabs for web elements. Mark any element(s).",
   "main": "src/webmarks.js",
   "directories": {

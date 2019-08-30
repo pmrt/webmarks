@@ -7,6 +7,7 @@ If you have a suggestion or an idea for new features, no matter how small, don't
 - Only show on scroll by default. Configurable with `alwaysVisible`
 - Option to set marks sizes relative to the their corresponding elements sizes with `renderSizes`
 - `OnNewMark` hook to customize each mark
+- `OnNewUpdate` hook to customize each mark update
 - Marks are repositioned on window resize
 ### Development
 - Good docs

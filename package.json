@@ -17,9 +17,11 @@
   },
   "keywords": [
     "marks",
-    "tabs",
     "highlight",
-    "webmarks"
+    "webmarks",
+    "navigation",
+    "scrollbar",
+    "ux"
   ],
   "author": "Pedro J. Martínez Martínez",
   "license": "MIT",

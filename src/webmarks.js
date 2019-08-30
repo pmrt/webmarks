@@ -7,10 +7,11 @@ const defaultOpts = {
     alwaysVisible: false,
     hideAfter: 500,
     onNewMark: noop,
+    onUpdateMark: noop,
 }
 
 const rememberingScroll = window.scrollY != 0;
-
+const resizeWait = 500;
 const styles =
 '.webmarks{position:fixed;top:0;right:0;bottom:0;transition: opacity 100ms;}' +
 '.webmark{position:absolute;background:#8667ff;right:0;}';
@@ -48,7 +49,7 @@ export class Webmarks {
         this.visible = true;
     }
 
-    _hide() {
+    hide() {
         this.wrapper.style.opacity = '0';
         this.visible = false;
     }
@@ -74,21 +75,42 @@ export class Webmarks {
                 wrapper.style.opacity = '0';
                 this.visible = false;
             }
-            this.hideAfterScroll = debounce(this._hide, this.opts.hideAfter, this);
+            this.hideAfterScroll = debounce(this.hide, this.opts.hideAfter, this);
+            this.optimizedUpdateMarks = debounce(this.updateMarks, resizeWait, this);
 
             document.addEventListener('scroll', () => {
                 window.requestAnimationFrame(this._onScroll);
             });
+            window.addEventListener('resize', () => {
+                window.requestAnimationFrame(this.optimizedUpdateMarks);
+            })
         }
 
+        this.marks = new Array(tops.length);
         each(tops, (i, markTop) => {
             const mark = document.createElement('div');
             mark.classList.add('webmark');
             mark.style.top = markTop + 'px';
+            this.marks[i] = mark;
             wrapper.appendChild(mark);
 
             this.opts.onNewMark(mark, wrapper);
         });
+    }
+
+    updateMarks() {
+        const newTops = getMarksTops(this.elems);
+
+        this.hide();
+
+        each(newTops, (i, markTop) => {
+            const mark = this.marks[i];
+            mark.style.top = markTop + 'px';
+
+            this.opts.onUpdateMark(mark, this.wrapper);
+        });
+
+        this.show();
     }
 
     _onScroll() {

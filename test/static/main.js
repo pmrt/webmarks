@@ -1,3 +1,3 @@
 let elems = document
     .getElementsByClassName('parent');
-const wt = new Webmarks(elems);
+const wm = new Webmarks(elems);

@@ -1,11 +1,12 @@
 import { onReady, each, isHTMLElement, injectCSS, debounce } from './helpers';
-import { getMarksTops } from './marks';
+import { getMarksRects } from './marks';
 
 const noop = () => {};
 
 const defaultOpts = {
     alwaysVisible: false,
     hideAfter: 500,
+    renderSizes: false,
     onNewMark: noop,
     onUpdateMark: noop,
 }
@@ -57,7 +58,7 @@ export class Webmarks {
     // TODO - 2. e2e test this
     createMarks() {
         // perform the top calculations
-        const tops = getMarksTops(this.elems);
+        const rects = getMarksRects(this.elems);
 
         const wrapper = this.wrapper = document.createElement('div');
         wrapper.classList.add('webmarks');
@@ -86,12 +87,14 @@ export class Webmarks {
             })
         }
 
-        this.marks = new Array(tops.length);
-        each(tops, (i, markTop) => {
-            const mark = document.createElement('div');
+        this.marks = new Array(rects.length);
+        each(rects, (i, rect) => {
+            const mark = this.marks[i] = document.createElement('div');
             mark.classList.add('webmark');
-            mark.style.top = markTop + 'px';
-            this.marks[i] = mark;
+            mark.style.top = rect.top + 'px';
+            if (this.opts.renderSizes) {
+                mark.style.height = rect.height + 'px';
+            }
             wrapper.appendChild(mark);
 
             this.opts.onNewMark(mark, wrapper);
@@ -99,13 +102,13 @@ export class Webmarks {
     }
 
     updateMarks() {
-        const newTops = getMarksTops(this.elems);
+        const rects = getMarksRects(this.elems);
 
         this.hide();
 
-        each(newTops, (i, markTop) => {
+        each(rects, (i, rect) => {
             const mark = this.marks[i];
-            mark.style.top = markTop + 'px';
+            mark.style.top = rect.top + 'px';
 
             this.opts.onUpdateMark(mark, this.wrapper);
         });

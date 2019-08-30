@@ -5,7 +5,15 @@ export const page = {
     height: pageHeight(),
 }
 
-export function intrpElemTop(elemTop) {
+/*
+* scaleHeight scales an `elementHeight` (relative to the page total height) to the corresponding height
+* for the current window height. ie. ratio * newValue
+*/
+export function scaleHeight(elemHeight) {
+    return elemHeight / page.height * window.innerHeight;
+}
+
+export function intrpTop(elemTop) {
     return intrp([0, page.height], [0, window.innerHeight], elemTop);
 }
 

@@ -1,4 +1,4 @@
-import { intrp } from '../intrp';
+import { intrp } from '../ratio';
 import { expectAll } from '../../test/helpers';
 
 describe('interpolates elements tops between ranges', () => {

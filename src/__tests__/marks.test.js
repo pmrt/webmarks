@@ -1,10 +1,10 @@
 import {
-    getMarksTops,
-    elemTops,
+    getMarksRects,
+    elemRects,
 } from '../marks';
 import {
     page,
-} from '../intrp';
+} from '../ratio';
 
 describe('calculate marks tops', () => {
     beforeAll(() => {
@@ -22,13 +22,13 @@ describe('calculate marks tops', () => {
         page.height = 1000;
 
         document.getElementById('first').getBoundingClientRect = () => {
-            return { top: 10 }
+            return { top: 10, height: 100 }
         };
         document.getElementById('second').getBoundingClientRect = () => {
-            return { top: 20 }
+            return { top: 20, height: 100 }
         };
         document.getElementById('third').getBoundingClientRect = () => {
-            return { top: 30 }
+            return { top: 30, height: 100 }
         };
     });
 
@@ -39,30 +39,30 @@ describe('calculate marks tops', () => {
         window.innerHeight = 0;
         page.height = 0;
 
-        elemTops[0] = undefined;
-        elemTops[1] = undefined;
-        elemTops[2] = undefined;
+        elemRects[0] = undefined;
+        elemRects[1] = undefined;
+        elemRects[2] = undefined;
     });
 
     test('get marks tops = [1, 2, 3] and cache the element tops', () => {
         const elems = document.getElementsByClassName('test');
         // cache should be empty
-        expect(elemTops).toEqual([]);
-        // TODO - simulate pageHeight
-        const got = getMarksTops(elems);
-        const want = [1, 2, 3];
+        expect(elemRects).toEqual([]);
+        const got = getMarksRects(elems);
+        // mark rects
+        const want = [{top: 1, height: 10}, {top: 2, height: 10}, {top: 3, height: 10}];
         expect(got).toEqual(want);
-        // cache shouldn't be empty
-        expect(elemTops).toEqual([10,20,30]);
+        // cache shouldn't be empty (fixed elem rects)
+        expect(elemRects).toEqual([{top: 10, height: 100}, {top: 20, height: 100}, {top: 30, height: 100}]);
     });
 
     test('getMarksProps uses cache', () => {
         const elems = document.getElementsByClassName('test');
-        expect(elemTops).toEqual([10,20,30]);
+        expect(elemRects).toEqual([{top: 10, height: 100}, {top: 20, height: 100}, {top: 30, height: 100}]);
         // override cache
-        elemTops[2] = 50;
-        const got = getMarksTops(elems)
-        const want = [1, 2, 5];
+        elemRects[2].top = 50;
+        const got = getMarksRects(elems)
+        const want = [{top: 1, height: 10}, {top: 2, height: 10}, {top: 5, height: 10}];
         expect(got).toEqual(want);
     });
 });

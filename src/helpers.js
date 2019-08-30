@@ -51,3 +51,23 @@ export function pageHeight() {
         html.scrollHeight, html.offsetHeight
     );
 }
+
+export function debounce(fn, wait) {
+    let timer, args, ctx;
+
+    function later() {
+        fn.apply(ctx, args);
+        timer = args = ctx = undefined;
+    }
+
+	return (...args) => {
+        args = args;
+        ctx = this;
+
+        if (timer) {
+            clearTimeout(timer);
+        }
+		timer = setTimeout(later, wait);
+	}
+}
+

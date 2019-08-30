@@ -2,10 +2,13 @@ import {
     isObject,
     isHTMLElement,
     onReady,
+    debounce,
 } from '../helpers';
 import {
     expectAll
 } from '../../test/helpers';
+
+jest.useFakeTimers();
 
 describe('callbacks are triggered with onReady', () => {
     afterAll(() => {
@@ -21,10 +24,9 @@ describe('callbacks are triggered with onReady', () => {
         onReady(cb);
 
         // Testing if it's really asynchronous
-        expect(cb).toHaveBeenCalledTimes(0);
-        setTimeout(() => {
-            expect(cb).toHaveBeenCalled();
-        }, 100);
+        expect(cb).not.toHaveBeenCalled();
+        jest.runAllTimers();
+        expect(cb).toHaveBeenCalled();
     });
 
     test('callback is triggered and listener is removed if document is not ready', () => {
@@ -34,10 +36,8 @@ describe('callbacks are triggered with onReady', () => {
           configurable: true,
         });
         onReady(cb);
-
-        setTimeout(() => {
-            expect(cb).toHaveBeenCalledTimes(0);
-        }, 100);
+        
+        expect(cb).not.toHaveBeenCalled();
         // Dispatch event twice.
         document.dispatchEvent(new Event("DOMContentLoaded"));
         document.dispatchEvent(new Event("DOMContentLoaded"));
@@ -75,5 +75,24 @@ describe('isHTMLElement checks for Element objects', () => {
             let got = isHTMLElement(set);
             expect(got).toStrictEqual(want);
         });
+    });
+});
+
+describe ('debounces a function', () => {
+
+    test('cancels consecutive calls, executing only one after \'wait\'', () => {
+        const fn = jest.fn();
+        const debounced = debounce(fn, 1000);
+
+        debounced();
+        expect(fn).not.toHaveBeenCalled();
+        for (let i = 0; i < 5; i++) {
+            debounced();
+            jest.advanceTimersByTime(100);
+            expect(fn).not.toHaveBeenCalled();
+        }
+
+        jest.advanceTimersByTime(1000);
+        expect(fn).toHaveBeenCalledTimes(1);
     });
 });

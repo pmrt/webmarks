@@ -52,18 +52,17 @@ export function pageHeight() {
     );
 }
 
-export function debounce(fn, wait) {
-    let timer, args, ctx;
+export function debounce(fn, wait, ctx) {
+    let timer,
+        args;
 
     function later() {
         fn.apply(ctx, args);
-        timer = args = ctx = undefined;
+        timer = args = undefined;
     }
 
 	return (...args) => {
         args = args;
-        ctx = this;
-
         if (timer) {
             clearTimeout(timer);
         }

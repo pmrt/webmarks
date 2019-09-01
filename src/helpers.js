@@ -2,9 +2,9 @@
 * onReady adds a callback `cb` to be triggered if document is ready. It'll call the callback as `self`
 * (optional) with the given `args` (optional).
 *
-* eg.: onReady(cb); onReady(cb, this, param1, param2, param3);
+* eg.: onReady(cb); onReady(cb, [param1, param2, param3]);
 */
-export function onReady(cb, self, ...args) {
+export function onReady(cb, args, self) {
     if (document.readyState === 'complete') {
         // Call it asynchronously
         setTimeout(cb, 0);

@@ -43,15 +43,13 @@ const defaultOpts = {
 
 export class Webmarks {
     constructor(elems, opts) {
+        this._onScroll = this._onScroll.bind(this);
+
         try {
-            this._setup(elems, opts);
+            onReady(this._init, [elems, opts], this);
         } catch(err) {
             console.error(err);
         }
-
-        this._onScroll = this._onScroll.bind(this);
-        onReady(this.createMarks, this);
-
     }
 
     /*
@@ -66,6 +64,14 @@ export class Webmarks {
     */
     set visible(bool) {
         this.wrapper.style.opacity = bool >>> 0;
+    }
+
+    /*
+    * _init initializes the library
+    */
+    _init(elems, opts) {
+        this._setup(elems, opts)
+        this._createMarks();
     }
 
     /*
@@ -89,6 +95,26 @@ export class Webmarks {
         injectCSS(styles);
         this.elems = elems;
         this.opts = {...defaultOpts, ...opts};
+
+        this._createWrapper();
+
+        if (!this.opts.alwaysVisible) {
+            // If user refreshes the page and the browser remembers the scroll it'll trigger the
+            // '_onScroll' method, resulting in a weird behaviour where marks will be visible until
+            // the user scrolls the page again. Therefore, we detect if browser is remembering scroll
+            // and if it does, we'll make it visible and hide it (similar behaviour as the scrollbar
+            // in most OS')
+            this.visible = isRememberingScroll;
+            this.hideAfterScroll = debounce(this.hide, this.opts.hideAfter, this);
+            document.addEventListener('scroll', () => {
+                window.requestAnimationFrame(this._onScroll);
+            });
+        }
+
+        this.updateAfterResize = debounce(this._updateMarks, resizeWait, this);
+        window.addEventListener('resize', () => {
+            window.requestAnimationFrame(this.updateAfterResize);
+        })
     }
 
     /*
@@ -105,40 +131,20 @@ export class Webmarks {
         this.visible = false;
     }
 
-    /*
-    * createMarks handles the marks wrapper/each mark creation.
-    */
-    // TODO - 2. e2e test this
-    createMarks() {
-        // perform the top calculations
-        const rects = getMarksRects(this.elems);
-
+    _createWrapper() {
         const wrapper = this.wrapper = document.createElement('div');
         wrapper.classList.add(this.opts.classes.wrapper);
         document.body.insertBefore(wrapper, document.body.firstChild);
+    }
 
-        // TODO - move this to _setup
-        if (!this.opts.alwaysVisible) {
-            // If user refreshes the page and the browser remembers the scroll it'll trigger the
-            // '_onScroll' method, resulting in a weird behaviour where marks will be visible until
-            // the user scrolls the page again. Therefore, we detect if browser is remembering scroll
-            // and if it does, we'll make it visible and hide it (similar behaviour as the scrollbar
-            // in most OS')
-            this.visible = isRememberingScroll;
-            this.hideAfterScroll = debounce(this.hide, this.opts.hideAfter, this);
-            document.addEventListener('scroll', () => {
-                window.requestAnimationFrame(this._onScroll);
-            });
-        }
-
-        this.updateAfterResize = debounce(this.updateMarks, resizeWait, this);
-        window.addEventListener('resize', () => {
-            window.requestAnimationFrame(this.updateAfterResize);
-        })
-
-
-
+    /*
+    * _createMarks handles each mark creation.
+    */
+    // TODO - 2. e2e test this
+    _createMarks() {
+        const rects = getMarksRects(this.elems);
         this.marks = new Array(rects.length);
+
         each(rects, (i, rect) => {
             const mark = this.marks[i] = document.createElement('div');
             mark.classList.add(this.opts.classes.mark);
@@ -146,16 +152,16 @@ export class Webmarks {
             if (this.opts.renderSizes) {
                 mark.style.height = rect.height + 'px';
             }
-            wrapper.appendChild(mark);
 
-            this.opts.onNewMark(mark, wrapper);
+            this.wrapper.appendChild(mark);
+            this.opts.onNewMark(mark, this.wrapper);
         });
     }
 
     /*
-    * updateMarks handles the mark repositioning
+    * _updateMarks handles the mark repositioning
     */
-    updateMarks() {
+    _updateMarks() {
         const rects = getMarksRects(this.elems);
 
         this.hide();

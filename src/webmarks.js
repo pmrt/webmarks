@@ -1,22 +1,42 @@
 import { onReady, each, isHTMLElement, injectCSS, debounce } from './helpers';
 import { getMarksRects } from './marks';
 
+// noop is an empty function. All hooks will default to it
 const noop = () => {};
+// isRememberingScroll figures out if the browser is remembering the last scrol position
 const isRememberingScroll = window.scrollY != 0;
+// resizeWait defines the debouncing wait time (ms) to be applied on window resize
 const resizeWait = 500;
 const styles =
 '.webmarks{position:fixed;top:0;right:0;bottom:0;transition: opacity 100ms;}' +
 '.webmark{position:absolute;background:#8667ff;right:0;}';
 
 const defaultOpts = {
+    // classes contains the class names which will be used to create the marks
     classes: {
         wrapper: 'webmarks',
         mark: 'webmark',
     },
+    // alwaysVisible determines whether the marks will be visible or not when
+    // user is not scrolling
+    // true – marks will be always visible
+    // false - marks will hide after user stops scrolling
     alwaysVisible: false,
+    // hideAfter defines a wait time (ms) rigth after user stops scrolling, after which the
+    // marks will hide. The time will be reset as user keeps scrolling (debouncing)
     hideAfter: 500,
+    // renderSizes determines whether the marks will be drawn with the corresponding scaled height of
+    // each element or not. Set it to 'true' if you want to represent the height of your elements along
+    // the scrollbar
     renderSizes: false,
+    // onNewMark hook will be invoked right after each mark creation
+    // onNewMark(mark, wrapper) will take two args:
+    // - `mark` is the HTMLElement of the mark which has been created
+    // - `wrapper` is the immediate parent element of all the  marks
     onNewMark: noop,
+    // onUpdateMark hook will be invoked right after each mark position update
+    // - `mark` is the HTMLElement of the mark which has been updated
+    // - `wrapper` is the immediate parent element of all the  marks
     onUpdateMark: noop,
 }
 
@@ -48,6 +68,13 @@ export class Webmarks {
         this.wrapper.style.opacity = bool >>> 0;
     }
 
+    /*
+    * _setup handles the Webmarks setup merging, setting and saving the elements and options,ready to be used.
+    *
+    * If `alwaysVisible` is set to `true` it'll hide (or show and hide if browser is remembering the scroll
+    * position) the marks, setting up a function to be invoked on scroll which will show/hide the marks. Also,
+    * it will setup a debounced function to update the marks position on window resize
+    */
     _setup(elems, opts) {
         if (!elems) {
             throw new TypeError("Elements array can't be empty");
@@ -64,14 +91,23 @@ export class Webmarks {
         this.opts = {...defaultOpts, ...opts};
     }
 
+    /*
+    * show makes the webmarks' wrapper visible. Transition animation will have effects on this function
+    */
     show() {
         this.visible = true;
     }
 
+    /*
+    * hide makes the webmarks' wrapper invisible. Transition animation will have effects on this function
+    */
     hide() {
         this.visible = false;
     }
 
+    /*
+    * createMarks handles the marks wrapper/each mark creation.
+    */
     // TODO - 2. e2e test this
     createMarks() {
         // perform the top calculations
@@ -81,6 +117,7 @@ export class Webmarks {
         wrapper.classList.add(this.opts.classes.wrapper);
         document.body.insertBefore(wrapper, document.body.firstChild);
 
+        // TODO - move this to _setup
         if (!this.opts.alwaysVisible) {
             // If user refreshes the page and the browser remembers the scroll it'll trigger the
             // '_onScroll' method, resulting in a weird behaviour where marks will be visible until
@@ -99,6 +136,8 @@ export class Webmarks {
             window.requestAnimationFrame(this.updateAfterResize);
         })
 
+
+
         this.marks = new Array(rects.length);
         each(rects, (i, rect) => {
             const mark = this.marks[i] = document.createElement('div');
@@ -113,6 +152,9 @@ export class Webmarks {
         });
     }
 
+    /*
+    * updateMarks handles the mark repositioning
+    */
     updateMarks() {
         const rects = getMarksRects(this.elems);
 

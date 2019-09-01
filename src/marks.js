@@ -31,7 +31,6 @@ export function getMarksRects(elems) {
         }
         : function cached(i) {
             const elRect = elemRects[i];
-            debugger;
             rects[i] = getMarkRects(elRect.top, elRect.height);
         }
     each(elems, loopfn);

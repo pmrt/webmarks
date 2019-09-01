@@ -14,7 +14,7 @@ export const page = {
 *   x = 4000; f(x)?
 *   f(x) = 4000/8000 * 1000 = 500; scaleHeight(4000) -> 500
 *   In order words: the mark height will be 500 height (half of the window) if the element height
-*   is the half of the page.
+*   is half of the page.
 */
 export function scaleHeight(elemHeight) {
     return elemHeight / page.height * window.innerHeight;

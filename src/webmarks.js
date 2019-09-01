@@ -77,15 +77,15 @@ export class Webmarks {
                 this.visible = false;
             }
             this.hideAfterScroll = debounce(this.hide, this.opts.hideAfter, this);
-            this.optimizedUpdateMarks = debounce(this.updateMarks, resizeWait, this);
-
             document.addEventListener('scroll', () => {
                 window.requestAnimationFrame(this._onScroll);
             });
-            window.addEventListener('resize', () => {
-                window.requestAnimationFrame(this.optimizedUpdateMarks);
-            })
         }
+
+        this.updateAfterResize = debounce(this.updateMarks, resizeWait, this);
+        window.addEventListener('resize', () => {
+            window.requestAnimationFrame(this.updateAfterResize);
+        })
 
         this.marks = new Array(rects.length);
         each(rects, (i, rect) => {

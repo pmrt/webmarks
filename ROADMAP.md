@@ -9,6 +9,7 @@ If you have a suggestion or an idea for new features, no matter how small, don't
 - `OnNewMark` hook to customize each mark
 - `OnNewUpdate` hook to customize each mark update
 - Marks are repositioned on window resize
+- Themes
 ### Development
 - Good docs
 - Landing page and publish to .js.org
@@ -23,7 +24,6 @@ If you have a suggestion or an idea for new features, no matter how small, don't
 # v1.3.0
 ### Features
 - Export and import marks in json format
-- More css themes
 
 ## Nothing more?
 

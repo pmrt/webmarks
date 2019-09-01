@@ -5,9 +5,12 @@
 * eg.: onReady(cb); onReady(cb, [param1, param2, param3]);
 */
 export function onReady(cb, args, self) {
+    debugger;
     if (document.readyState === 'complete') {
         // Call it asynchronously
-        setTimeout(cb, 0);
+        setTimeout(() => {
+            cb.apply(self, args);
+        }, 0);
     } else {
         const fn = function() {
             document.removeEventListener("DOMContentLoaded", fn);

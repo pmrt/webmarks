@@ -2,7 +2,7 @@ import { onReady, each, isHTMLElement, injectCSS, debounce } from './helpers';
 import { getMarksRects } from './marks';
 
 const noop = () => {};
-const rememberingScroll = window.scrollY != 0;
+const isRememberingScroll = window.scrollY != 0;
 const resizeWait = 500;
 const styles =
 '.webmarks{position:fixed;top:0;right:0;bottom:0;transition: opacity 100ms;}' +
@@ -34,6 +34,20 @@ export class Webmarks {
 
     }
 
+    /*
+    * visible getter. Returns true if opacity = 1, false if opacity = 0.
+    */
+    get visible() {
+        return !!parseInt(this.wrapper.style.opacity);
+    }
+
+    /*
+    * visible setter. Takes a `bool` (true or false) and converts it to int (1 or 0).
+    */
+    set visible(bool) {
+        this.wrapper.style.opacity = bool >>> 0;
+    }
+
     _setup(elems, opts) {
         if (!elems) {
             throw new TypeError("Elements array can't be empty");
@@ -44,18 +58,17 @@ export class Webmarks {
             throw new TypeError(JSON.stringify(peek) + " is not an HTMLElement");
         }
 
+        // TODO - create themes and remove CSS injection. It should be unopinated
         injectCSS(styles);
         this.elems = elems;
         this.opts = {...defaultOpts, ...opts};
     }
 
     show() {
-        this.wrapper.style.opacity = '1';
         this.visible = true;
     }
 
     hide() {
-        this.wrapper.style.opacity = '0';
         this.visible = false;
     }
 
@@ -69,17 +82,12 @@ export class Webmarks {
         document.body.insertBefore(wrapper, document.body.firstChild);
 
         if (!this.opts.alwaysVisible) {
-            // If an user refreshes the page and the browser remembers the scroll it'll trigger the
+            // If user refreshes the page and the browser remembers the scroll it'll trigger the
             // '_onScroll' method, resulting in a weird behaviour where marks will be visible until
             // the user scrolls the page again. Therefore, we detect if browser is remembering scroll
             // and if it does, we'll make it visible and hide it (similar behaviour as the scrollbar
             // in most OS')
-            if (rememberingScroll) {
-                this.visible = true;
-            } else {
-                wrapper.style.opacity = '0';
-                this.visible = false;
-            }
+            this.visible = isRememberingScroll;
             this.hideAfterScroll = debounce(this.hide, this.opts.hideAfter, this);
             document.addEventListener('scroll', () => {
                 window.requestAnimationFrame(this._onScroll);

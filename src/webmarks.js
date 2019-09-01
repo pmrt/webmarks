@@ -4,6 +4,10 @@ import { getMarksRects } from './marks';
 const noop = () => {};
 
 const defaultOpts = {
+    classes: {
+        wrapper: 'webmarks',
+        mark: 'webmark',
+    },
     alwaysVisible: false,
     hideAfter: 500,
     renderSizes: false,
@@ -61,7 +65,7 @@ export class Webmarks {
         const rects = getMarksRects(this.elems);
 
         const wrapper = this.wrapper = document.createElement('div');
-        wrapper.classList.add('webmarks');
+        wrapper.classList.add(this.opts.classes.wrapper);
         document.body.insertBefore(wrapper, document.body.firstChild);
 
         if (!this.opts.alwaysVisible) {
@@ -90,7 +94,7 @@ export class Webmarks {
         this.marks = new Array(rects.length);
         each(rects, (i, rect) => {
             const mark = this.marks[i] = document.createElement('div');
-            mark.classList.add('webmark');
+            mark.classList.add(this.opts.classes.mark);
             mark.style.top = rect.top + 'px';
             if (this.opts.renderSizes) {
                 mark.style.height = rect.height + 'px';

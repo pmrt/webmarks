@@ -2,6 +2,11 @@ import { onReady, each, isHTMLElement, injectCSS, debounce } from './helpers';
 import { getMarksRects } from './marks';
 
 const noop = () => {};
+const rememberingScroll = window.scrollY != 0;
+const resizeWait = 500;
+const styles =
+'.webmarks{position:fixed;top:0;right:0;bottom:0;transition: opacity 100ms;}' +
+'.webmark{position:absolute;background:#8667ff;right:0;}';
 
 const defaultOpts = {
     classes: {
@@ -15,11 +20,6 @@ const defaultOpts = {
     onUpdateMark: noop,
 }
 
-const rememberingScroll = window.scrollY != 0;
-const resizeWait = 500;
-const styles =
-'.webmarks{position:fixed;top:0;right:0;bottom:0;transition: opacity 100ms;}' +
-'.webmark{position:absolute;background:#8667ff;right:0;}';
 
 export class Webmarks {
     constructor(elems, opts) {

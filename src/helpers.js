@@ -29,7 +29,14 @@ export function injectCSS(styles) {
     const s = document.createElement('style');
     s.type = "text/css";
     s.innerText = styles;
-    document.head.appendChild(s);
+
+    const links = document.getElementsByTagName('link');
+    if (links.length !== 0) {
+        const first = links[0];
+        document.head.insertBefore(s, first);
+    } else {
+        document.head.appendChild(s);
+    }
 }
 
 /*

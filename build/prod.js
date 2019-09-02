@@ -5,7 +5,6 @@ const name = 'webmarks';
 
 const entryPath = path.join(rootPath, `/src/${name}.js`);
 const distPath = path.join(rootPath, '/dist');
-const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 module.exports = {
     watch: true,
@@ -15,13 +14,4 @@ module.exports = {
         path: distPath
     },
     mode: 'production',
-    plugins: [
-        new FileManagerPlugin({
-            onEnd: {
-                copy: [
-                    { source: path.join(distPath, 'webmarks.min.js'), destination: path.join(rootPath, '/test/webmarks.js') }
-                ]
-            }
-        })
-    ],
 }

@@ -7,7 +7,6 @@ const entryPath = path.join(rootPath, `/src/${name}.js`);
 const distPath = path.join(rootPath, '/dist');
 
 module.exports = {
-    watch: true,
     entry: entryPath,
     output: {
         filename: `${name}.min.js`,

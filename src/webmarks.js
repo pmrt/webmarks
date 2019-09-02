@@ -1,5 +1,6 @@
 import { onReady, each, isHTMLElement, debounce } from './helpers';
 import { getMarksRects } from './marks';
+import { page } from './ratio';
 
 // noop is an empty function. All hooks will default to it
 const noop = () => {};
@@ -19,12 +20,13 @@ const defaultOpts = {
     // true – marks will be always visible
     // false - marks will hide after user stops scrolling
     alwaysVisible: false,
-    // hideAfter defines a wait time (ms) rigth after user stops scrolling, after which the
-    // marks will hide. The time will be reset as user keeps scrolling (debouncing)
+    // hideAfter defines a wait time (ms) rigth after user stops scrolling, after
+    // which themarks will hide. The time will be reset as user keeps scrolling
+    // (debouncing)
     hideAfter: 500,
-    // renderSizes determines whether the marks will be drawn with the corresponding scaled height of
-    // each element or not. Set it to 'true' if you want to represent the height of your elements along
-    // the scrollbar
+    // renderSizes determines whether the marks will be drawn with the corresponding
+    // scaled height of each element or not. Set it to 'true' if you want to represent
+    // the height of your elements along the scrollbar
     renderSizes: false,
     // onNewMark hook will be invoked right after each mark creation
     // onNewMark(mark, wrapper) will take two args:
@@ -50,7 +52,8 @@ const defaultOpts = {
     // - `wrapper` is the immediate parent element of all the future marks
     beforeUpdate: noop,
     // attachTo is an HTMLElement. If provided, it'll attach the wrapper to the
-    // `attachTo` element (as first child), instead of the document.body;
+    // `attachTo` element (as first child), instead of the document.body. The
+    // provided element height will change to match window.innerHeight.
     attachTo: null,
 }
 
@@ -154,6 +157,7 @@ export class Webmarks {
 
         if (attachTo) {
             attachTo.insertBefore(wrapper, attachTo.firstChild);
+            attachTo.style.height = window.innerHeight + 'px';
         } else {
             document.body.insertBefore(wrapper, document.body.firstChild);
         }

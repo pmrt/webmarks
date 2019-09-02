@@ -1,0 +1,73 @@
+* {
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+}
+
+small {
+    font-size: 8px;
+}
+
+
+section {
+    margin: 20px 40px;
+    max-width: 1280px;
+    position: relative;
+}
+
+.note-wrapper {
+    margin-bottom: 32px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.title {
+    font-family: 'Source Sans Pro';
+    font-size: 52px;
+    position: relative;
+    margin: 40px 0px;
+}
+
+.title::after {
+    content: '';
+    width: 100px;
+    height: 8px;
+    background: #8667ff;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+}
+
+.author::before {
+    content: '@';
+}
+
+.author {
+    font-weight: bold;
+}
+
+.comment-wrapper {
+    margin: 10px 0;
+    max-width: 800px;
+}
+
+.comment-wrapper .comment-wrapper {
+    margin: 10px 40px;
+}
+
+.comment {
+    padding: 30px;
+    background: #000000;
+    color: #fff;
+}
+
+.body > p {
+    margin: 10px;
+}
+
+.comment .author {
+    font-size: 12px;
+}
+
+.comment .body {
+    font-size: 14px;
+}

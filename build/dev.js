@@ -1,8 +1,8 @@
 const path = require('path');
 const rootPath = path.join(__dirname, '../');
-const distPath = path.join(rootPath, '/dist');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const name = 'webmarks';
 
@@ -16,7 +16,7 @@ module.exports = {
     devtool: 'eval',
     output: {
         filename: '[name].js',
-        path: distPath,
+        path: path.join(rootPath, '/test/dist'),
     },
     mode: 'development',
     devServer: {
@@ -47,6 +47,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: "./static/index.html",
             filename: "index.html"
-        })
+        }),
+        new CopyWebpackPlugin([
+          { from: './static/*.css', to: '.', flatten: true },
+        ]),
     ],
 }

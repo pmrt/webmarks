@@ -40,12 +40,18 @@ const defaultOpts = {
     onUpdateMark: noop,
     // onCreation callback will be invoked right after all marks have been created
     // - `marks` is an array with all the marks which have been created.
-    // - `wrapper` os the immediate parent element of all marks
+    // - `wrapper` is the immediate parent element of all marks
     onCreation: noop,
     // onUpdate callback will be invoked right after all marks have been updated
     // - `marks` is an array with all the marks which have been updated.
-    // - `wrapper` os the immediate parent element of all marks
+    // - `wrapper` is the immediate parent element of all marks
     onUpdate: noop,
+    // beforeCreation callback will be invoked right before marks creation
+    // - `wrapper` is the immediate parent element of all the future marks
+    beforeCreation: noop,
+    // beforeUpdate callback will be invoked right before marks update
+    // - `wrapper` is the immediate parent element of all the future marks
+    beforeUpdate: noop,
 }
 
 
@@ -153,6 +159,8 @@ export class Webmarks {
         const rects = getMarksRects(this.elems);
         this.marks = new Array(rects.length);
 
+        this.opts.beforeCreation(this.wrapper);
+
         each(rects, (i, rect) => {
             const mark = this.marks[i] = document.createElement('div');
             mark.classList.add(this.opts.classes.mark);
@@ -164,6 +172,7 @@ export class Webmarks {
             this.wrapper.appendChild(mark);
             this.opts.onNewMark(mark, this.wrapper);
         });
+
         this.opts.onCreation(this.marks, this.wrapper);
     }
 
@@ -174,6 +183,7 @@ export class Webmarks {
         const rects = getMarksRects(this.elems);
 
         this.hide();
+        this.opts.beforeUpdate(this.wrapper);
 
         each(rects, (i, rect) => {
             const mark = this.marks[i];

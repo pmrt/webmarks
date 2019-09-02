@@ -6,10 +6,12 @@ If you have a suggestion or an idea for new features, no matter how small, don't
 ### Features
 - Only show on scroll by default. Configurable with `alwaysVisible`
 - Option to set marks sizes relative to the their corresponding elements sizes with `renderSizes`
-- `OnNewMark` hook to customize each mark
-- `OnNewUpdate` hook to customize each mark update
-- `OnCreation` hook to invoke a callback right after all marks have been created
-- `OnUpdate` hook to invoke a callback right after all marks have been updated
+- `onNewMark` hook to customize each mark
+- `onNewUpdate` hook to customize each mark update
+- `onCreation` hook to invoke a callback right after all marks have been created
+- `onUpdate` hook to invoke a callback right after all marks have been updated
+- `beforeCreation` hook to invoke a callback right before marks creation
+- `beforeUpdate` hook to invoke a callback right before marks update
 - Marks are repositioned on window resize
 - Themes
 ### Development

@@ -5,25 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Webmarks</title>
-</head>
+    <link rel="stylesheet" href="demo/lib/css/default.css">
+    <link rel="stylesheet" href="demo/lib/css/content.css">
     <style>
         * {
             margin: 0;
             padding: 0;
         }
 
-        .rect {
+        body {
+            background-color: #ccc;
+        }
+
+        .container {
+            background-color: #fff;
+        }
+
+        .rectangle {
             height: 500px;
             width: 500px;
             background: #ccc;
         }
 
         .iframe-wrapper {
-            opacity: 0;
             transition: opacity 1s;
         }
 
-        .tutorial-text > .sticky {
+        .tutorial {
+            width: 45vw;
+        }
+
+        .tutorial-text .sticky {
             padding: 80px 40px;
         }
 
@@ -38,6 +50,13 @@
             margin-top: 25px;
             font-weight: 100;
             color: #6b6b6b;
+        }
+
+        .step-title {
+            padding: 32px 0;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
         }
 
         .sticky {
@@ -57,7 +76,18 @@
         }
 
     </style>
+    <script src="demo/lib/js/webmarks.js"></script>
     <script>
+        let wm;
+
+        const opts = {
+            renderSizes: true,
+            alwaysVisible: true,
+        }
+
+        const steps = document.getElementsByClassName('step-title');
+        wm = new Webmarks(steps, opts);
+
         function pageHeight(doc) {
             let body = doc.body,
                 html = doc.documentElement;
@@ -66,6 +96,9 @@
                 html.scrollHeight, html.offsetHeight
             );
         }
+
+        // TODO - Need a way to provide custom size for wrapper size. Give it
+        // a size of ~600
 
         function updateDemoHeights() {
             let wrappers = document.getElementsByClassName('iframe-wrapper');
@@ -83,24 +116,145 @@
             }
         }
 
-        window.onload = updateDemoHeights;
+
+        //window.onload = updateDemoHeights;
     </script>
+</head>
 <body>
-    <section>
-        <div class="demo tutorial">
-            <div class="iframe-wrapper">
-                <iframe class="iframe" src="demo/tutorial.html" frameborder="0"></iframe>
-            </div>
-            <div class="tutorial-text">
-                <div class="sticky">
-                    <h1>Following a tutorial?</h1>
-                    <h3>Go straight to each step.</h3>
+    <div class="container">
+        <section>
+            <div class="demo">
+                <div class="tutorial">
+                    <div class="step">
+                        <h3 class="step-title">Step 1</h3>
+                        <div class="shapes">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                            <div class="square"></div>
+                        </div>
+                        <div class="shapes">
+                            <div class="rects">
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                            </div>
+                        </div>
+                        <div class="shapes">
+                            <div class="square-x2"></div>
+                        </div>
+                        <div class="shapes">
+                            <div class="rects">
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                            </div>
+                        </div>
+                        <div class="shapes">
+                            <div class="rects">
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3 class="step-title">Step 2</h3>
+                        <div class="shapes">
+                            <div class="rects">
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                            </div>
+                        </div>
+                        <div class="shapes">
+                            <div class="rects">
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                            </div>
+                        </div>
+                        <div class="shapes">
+                            <div class="square"></div>
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3 class="step-title">Step 3</h3>
+                        <div class="shapes">
+                            <div class="square-x2"></div>
+                        </div>
+                        <div class="rects">
+                            <div class="rect-x2"></div>
+                            <div class="rect-x2"></div>
+                            <div class="rect-x2"></div>
+                        </div>
+                        <div class="rects">
+                            <div class="rect-x2"></div>
+                            <div class="rect-x2"></div>
+                            <div class="rect-x2"></div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3 class="step-title">Step 4</h3>
+                        <div class="shapes">
+                            <div class="rects">
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                            </div>
+                        </div>
+                        <div class="shapes">
+                            <div class="rects">
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                            </div>
+                        </div>
+                        <div class="shapes">
+                            <div class="square"></div>
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3 class="step-title">Step 5</h3>
+                        <div class="shapes">
+                            <div class="rects">
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                            </div>
+                        </div>
+                        <div class="shapes">
+                            <div class="rects">
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                                <div class="rect-x2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tutorial-text">
+                    <div class="sticky">
+                        <h1>Following a tutorial?</h1>
+                        <h3>Go straight to each step.</h3>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section>
-        <div class="rect"></div>
-    </section>
+        </section>
+        <section>
+            <div class="rectangle"></div>
+        </section>
+    </div>
 </body>
 </html>

@@ -1,0 +1,33 @@
+/*
+* Core styles
+*/
+
+.webmarks {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    transition: opacity 100ms;
+}
+
+.webmark {
+    position: absolute;
+    right: 0;
+}
+
+/*
+* Customizations
+*/
+
+.webmark {
+    height: 1px;
+    background:#8667ff;
+}
+
+.webmarks {
+    background: #e8e8e8;
+}
+
+.webmarks, .webmark {
+    width: 15px;
+}

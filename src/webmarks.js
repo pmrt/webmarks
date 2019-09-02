@@ -1,4 +1,4 @@
-import { onReady, each, isHTMLElement, injectCSS, debounce } from './helpers';
+import { onReady, each, isHTMLElement, debounce } from './helpers';
 import { getMarksRects } from './marks';
 
 // noop is an empty function. All hooks will default to it

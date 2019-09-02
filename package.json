@@ -1,0 +1,22 @@
+{
+  "name": "webmarks-website",
+  "version": "1.0.0",
+  "description": "Webmarks' website",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmrt/webmarks.git"
+  },
+  "author": "Pedro J. Martínez Martínez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pmrt/webmarks/issues"
+  },
+  "homepage": "https://github.com/pmrt/webmarks#readme"
+}

@@ -32,12 +32,20 @@ const defaultOpts = {
     // onNewMark hook will be invoked right after each mark creation
     // onNewMark(mark, wrapper) will take two args:
     // - `mark` is the HTMLElement of the mark which has been created
-    // - `wrapper` is the immediate parent element of all the  marks
+    // - `wrapper` is the immediate parent element of all marks
     onNewMark: noop,
     // onUpdateMark hook will be invoked right after each mark position update
     // - `mark` is the HTMLElement of the mark which has been updated
-    // - `wrapper` is the immediate parent element of all the  marks
+    // - `wrapper` is the immediate parent element of all marks
     onUpdateMark: noop,
+    // onCreation callback will be invoked right after all marks have been created
+    // - `marks` is an array with all the marks which have been created.
+    // - `wrapper` os the immediate parent element of all marks
+    onCreation: noop,
+    // onUpdate callback will be invoked right after all marks have been updated
+    // - `marks` is an array with all the marks which have been updated.
+    // - `wrapper` os the immediate parent element of all marks
+    onUpdate: noop,
 }
 
 
@@ -156,6 +164,7 @@ export class Webmarks {
             this.wrapper.appendChild(mark);
             this.opts.onNewMark(mark, this.wrapper);
         });
+        this.opts.onCreation(this.marks, this.wrapper);
     }
 
     /*
@@ -174,6 +183,7 @@ export class Webmarks {
         });
 
         this.show();
+        this.opts.onUpdate(this.marks, this.wrapper);
     }
 
     _onScroll() {

@@ -27,6 +27,11 @@ export function intrpTop(elemTop) {
     return intrp([0, page.height], [0, window.innerHeight], elemTop);
 }
 
+export function intrpCustomElem(elemTop, elemHeight) {
+    const h = elemHeight.getBoundingClientRect().height;
+    return intrp([0, page.height], [0, h], elemTop);
+}
+
 /*
 * intrp interpolates a provided value `v` given two arrays with the following format: [min, max]
 *

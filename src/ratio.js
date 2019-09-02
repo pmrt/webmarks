@@ -3,10 +3,10 @@ import { pageHeight, onReady } from './helpers';
 // page caches the needed page sizes to avoid further calculations
 export let page = {}
 
-function getPageSizes() {
+function setPageSizes() {
     page.height = pageHeight();
 }
-onReady(getPageSizes);
+onReady(setPageSizes);
 
 /*
 * scaleHeight scales an `elementHeight` (relative to the total page height) to the corresponding height

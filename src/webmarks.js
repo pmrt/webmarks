@@ -1,6 +1,11 @@
-import { onReady, each, isHTMLElement, debounce } from './helpers';
+import {
+    onReady,
+    each,
+    isHTMLElement,
+    debounce,
+    injectCSS
+} from './helpers';
 import { getMarksRects } from './marks';
-import { page } from './ratio';
 
 // noop is an empty function. All hooks will default to it
 const noop = () => {};
@@ -55,6 +60,8 @@ const defaultOpts = {
     // `attachTo` element (as first child), instead of the document.body. The
     // provided element height will change to match window.innerHeight.
     attachTo: null,
+    // opacityTransition of the wrapper
+    opacityTransition: 100,
 }
 
 export class Webmarks {
@@ -110,11 +117,25 @@ export class Webmarks {
         this.elems = elems;
         this.opts = {...defaultOpts, ...opts};
 
-        if (this.opts.attachTo && !isHTMLElement(this.opts.attachTo)) {
+        const attachTo = this.opts.attachTo;
+        if (attachTo && !isHTMLElement(attachTo)) {
             throw new TypeError(JSON.stringify(peek) + " is not an HTMLElement");
         }
 
-
+        let pos = attachTo ? 'absolute' : 'fixed';
+        injectCSS(
+        `.webmarks{`+
+            `position:${pos};` +
+            `top:0;`+
+            `right:0;`+
+            `bottom:0;`+
+            `transition: opacity ${this.opts.opacityTransition}ms;`+
+        `}`+
+        `.webmark{`+
+            `position:absolute;`+
+            `background:#333;`+
+            `right:0;}`
+        );
         this._createWrapper();
 
         if (!this.opts.alwaysVisible) {

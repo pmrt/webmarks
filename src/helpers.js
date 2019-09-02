@@ -25,6 +25,13 @@ export function each(arr, cb, self) {
     }
 }
 
+export function injectCSS(styles) {
+    const s = document.createElement('style');
+    s.type = "text/css";
+    s.innerText = styles;
+    document.head.appendChild(s);
+}
+
 /*
 * isObject checks if a given `obj` is an object. Array and functions return 'false' as they have
 * length >= 0.

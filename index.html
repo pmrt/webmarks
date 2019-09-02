@@ -6,9 +6,67 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Webmarks</title>
 </head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .rect {
+            height: 500px;
+            width: 500px;
+            background: #ccc;
+        }
+
+        .iframe-wrapper {
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        iframe {
+            border: none;
+            height: 100%;
+            width: 45vw;
+            overflow-y: hidden;
+        }
+
+    </style>
+    <script>
+        function pageHeight(doc) {
+            let body = doc.body,
+                html = doc.documentElement;
+            return Math.max(
+                body.scrollHeight, body.offsetHeight, html.clientHeight,
+                html.scrollHeight, html.offsetHeight
+            );
+        }
+
+        function updateDemoHeights() {
+            let wrappers = document.getElementsByClassName('iframe-wrapper');
+            let demos = document.getElementsByClassName('demo');
+            for (let i = 0; i < demos.length; i++) {
+                let demo = demos[i];
+                let wrapper = wrappers[i];
+
+                wrapper.style.opacity = '0'
+
+                let h = pageHeight(demo.contentDocument);
+                wrapper.style.height = h + 'px';
+
+                wrapper.style.opacity = '1';
+            }
+        }
+
+        window.onload = updateDemoHeights;
+    </script>
 <body>
     <section>
-        <iframe src="demo/tutorial.html" frameborder="0"></iframe>
+        <div class="iframe-wrapper">
+            <iframe class="demo" src="demo/tutorial.html" frameborder="0"></iframe>
+        </div>
+    </section>
+    <section>
+        <div class="rect"></div>
     </section>
 </body>
 </html>

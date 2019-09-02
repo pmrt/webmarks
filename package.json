@@ -5,8 +5,11 @@
   "main": "index.js",
   "private": true,
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.26.7"
+  },
   "scripts": {
+    "start": "browser-sync start --server '.' --files '.'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

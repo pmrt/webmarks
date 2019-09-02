@@ -61,13 +61,17 @@
     </style>
     <script src="lib/webmarks.js"></script>
     <script>
+        let wm;
+
         const opts = {
             renderSizes: true,
             alwaysVisible: true,
+            beforeCreation: () => wm.visible = false,
+            onUpdate: () => wm.visible = true,
         }
 
         const steps = document.getElementsByClassName('step-title');
-        const wm = new Webmarks(steps, opts);
+        wm = new Webmarks(steps, opts);
     </script>
 </head>
 <body>

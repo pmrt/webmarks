@@ -8,6 +8,8 @@ If you have a suggestion or an idea for new features, no matter how small, don't
 - Option to set marks sizes relative to the their corresponding elements sizes with `renderSizes`
 - `OnNewMark` hook to customize each mark
 - `OnNewUpdate` hook to customize each mark update
+- `OnCreation` hook to invoke a callback right after all marks have been created
+- `OnUpdate` hook to invoke a callback right after all marks have been updated
 - Marks are repositioned on window resize
 - Themes
 ### Development

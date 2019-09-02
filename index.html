@@ -79,15 +79,19 @@
     </style>
     <script src="demo/lib/js/webmarks.js"></script>
     <script>
-        let wm;
+        window.onload = () => {
+            let wm;
+            const steps = document.getElementsByClassName('step-title');
+            const demo1 = document.getElementById('demo-1');
 
-        const opts = {
-            renderSizes: true,
-            alwaysVisible: true,
+            const opts = {
+                renderSizes: true,
+                alwaysVisible: true,
+                attachTo: demo1,
+            }
+
+            wm = new Webmarks(steps, opts);
         }
-
-        const steps = document.getElementsByClassName('step-title');
-        wm = new Webmarks(steps, opts);
 
         // TODO - Need a way to provide custom size for wrapper size. Give it
         // a size of ~600
@@ -218,7 +222,7 @@
                     </div>
                 </div>
                 <div class="tutorial-text">
-                    <div class="sticky">
+                    <div class="sticky" id="demo-1">
                         <h1>Following a tutorial?</h1>
                         <h3>Go straight to each step.</h3>
                     </div>

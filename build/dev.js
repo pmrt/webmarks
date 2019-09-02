@@ -49,7 +49,8 @@ module.exports = {
             filename: "index.html"
         }),
         new CopyWebpackPlugin([
-          { from: './static/*.css', to: '.', flatten: true },
+            { from: '../src/themes/*.css', to: '.', flatten: true },
+            { from: './static/*.css', to: '.', flatten: true },
         ]),
     ],
 }

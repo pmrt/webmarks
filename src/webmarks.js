@@ -7,9 +7,6 @@ const noop = () => {};
 const isRememberingScroll = window.scrollY != 0;
 // resizeWait defines the debouncing wait time (ms) to be applied on window resize
 const resizeWait = 500;
-const styles =
-'.webmarks{position:fixed;top:0;right:0;bottom:0;transition: opacity 100ms;}' +
-'.webmark{position:absolute;background:#8667ff;right:0;}';
 
 const defaultOpts = {
     // classes contains the class names which will be used to create the marks
@@ -105,8 +102,6 @@ export class Webmarks {
             throw new TypeError(JSON.stringify(peek) + " is not an HTMLElement");
         }
 
-        // TODO - create themes and remove CSS injection. It should be unopinated
-        injectCSS(styles);
         this.elems = elems;
         this.opts = {...defaultOpts, ...opts};
 
@@ -154,7 +149,6 @@ export class Webmarks {
     /*
     * _createMarks handles each mark creation.
     */
-    // TODO - 2. e2e test this
     _createMarks() {
         const rects = getMarksRects(this.elems);
         this.marks = new Array(rects.length);

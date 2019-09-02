@@ -12,6 +12,15 @@
             margin: 0;
         }
     </style>
+    <script src="webmarks.min.js"></script>
+    <script>
+        const opts = {
+            renderSizes: true,
+        }
+
+        const steps = document.getElementsByClassName('step');
+        const wm = Webmarks(steps, opts);
+    </script>
 </head>
 <body>
     <h1>Tutorial</h1>

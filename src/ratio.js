@@ -1,9 +1,12 @@
-import { pageHeight } from './helpers';
+import { pageHeight, onReady } from './helpers';
 
 // page caches the needed page sizes to avoid further calculations
-export const page = {
-    height: pageHeight(),
+export let page = {}
+
+function getPageSizes() {
+    page.height = pageHeight();
 }
+onReady(getPageSizes);
 
 /*
 * scaleHeight scales an `elementHeight` (relative to the total page height) to the corresponding height

@@ -92,6 +92,20 @@ describe('marks', () => {
         }
     });
 
-    // TODO - test always visible
+    test.each([[false, '0'], [true, '1']])(
+        'when alwaysVisible=%s marks opacity is %i',
+        async (alwaysVisible, expectedOpacity) => {
+            driver = await setup({
+                alwaysVisible,
+            });
 
+            got = await $By.class('webmarks');
+            want = 1;
+            expect(got).toHaveLength(want);
+
+            let wrapper = got[0];
+            got = await wrapper.getCssValue('opacity');
+            want = expectedOpacity;
+            expect(got).toBe(want);
+        })
 });

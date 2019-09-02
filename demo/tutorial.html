@@ -11,6 +11,47 @@
             font-family: 'Raleway', sans-serif;
             margin: 0;
         }
+
+        .shapes {
+            display: flex;
+        }
+
+        .rect {
+            width: 200px;
+            height: 10px;
+        }
+
+        .rect-x2 {
+            width: 290px;
+            height: 10px;
+        }
+
+        .square {
+            width: 50px;
+            height: 50px;
+        }
+
+        .square-x2 {
+            width: 290px;
+            height: 200px;
+        }
+
+        .rect, .rect-x2, .square , .square-x2 {
+            margin: 10px 20px;
+            background: #f1f1f1;
+        }
+
+        .webmarks {
+            background-color: #e8e8e8;
+        }
+
+        .webmark {
+            height: 1px;
+        }
+
+        .webmarks, .webmark {
+            width: 15px;
+        }
     </style>
     <script src="lib/webmarks.js"></script>
     <script>
@@ -19,7 +60,7 @@
             alwaysVisible: true,
         }
 
-        const steps = document.getElementsByClassName('step');
+        const steps = document.getElementsByClassName('step-title');
         const wm = new Webmarks(steps, opts);
     </script>
 </head>
@@ -27,19 +68,51 @@
     <h1>Tutorial</h1>
     <section>
         <div class="step">
-            <h1>Step 1</h1>
+            <h3 class="step-title">Step 1</h3>
+            <div class="shapes">
+                <div class="rects">
+                    <div class="rect"></div>
+                    <div class="rect"></div>
+                    <div class="rect"></div>
+                </div>
+                <div class="square"></div>
+            </div>
+            <div class="shapes">
+                <div class="rects">
+                    <div class="rect-x2"></div>
+                    <div class="rect-x2"></div>
+                    <div class="rect-x2"></div>
+                </div>
+            </div>
+            <div class="shapes">
+                <div class="square-x2"></div>
+            </div>
+            <div class="shapes">
+                <div class="rects">
+                    <div class="rect-x2"></div>
+                    <div class="rect-x2"></div>
+                    <div class="rect-x2"></div>
+                </div>
+            </div>
+            <div class="shapes">
+                <div class="rects">
+                    <div class="rect-x2"></div>
+                    <div class="rect-x2"></div>
+                    <div class="rect-x2"></div>
+                </div>
+            </div>
         </div>
         <div class="step">
-            <h1>Step 2</h1>
+            <h3 class="step-title">Step 2</h3>
         </div>
         <div class="step">
-            <h1>Step 3</h1>
+            <h3 class="step-title">Step 3</h3>
         </div>
         <div class="step">
-            <h1>Step 4</h1>
+            <h3 class="step-title">Step 4</h3>
         </div>
         <div class="step">
-            <h1>Step 5</h1>
+            <h3 class="step-title">Step 5</h3>
         </div>
     </section>
 </body>

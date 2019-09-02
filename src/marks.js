@@ -1,6 +1,5 @@
 import {
     intrpTop,
-    intrpCustomElem,
     scaleHeight,
 } from './ratio';
 import {
@@ -19,7 +18,7 @@ export let elemRects = new Array();
 * the visible window height, returning anarray with all the corresponding marks tops for the current visible
 * window height.
 **/
-export function getMarksRects(elems, attachTo) {
+export function getMarksRects(elems) {
     let rects = new Array(elems.length);
     // peek the first element to check if cache is available
     let loopfn = elemRects[0] === undefined
@@ -28,11 +27,11 @@ export function getMarksRects(elems, attachTo) {
             // distance from the page top to the element top
             let elemTop = window.scrollY + elRect.top;
             elemRects[i] = { top: elemTop, height: elRect.height };
-            rects[i] = getMarkRects(elemTop, elRect.height, attachTo);
+            rects[i] = getMarkRects(elemTop, elRect.height);
         }
         : function cached(i) {
             const elRect = elemRects[i];
-            rects[i] = getMarkRects(elRect.top, elRect.height, attachTo);
+            rects[i] = getMarkRects(elRect.top, elRect.height);
         }
     each(elems, loopfn);
     return rects;
@@ -42,9 +41,6 @@ export function getMarksRects(elems, attachTo) {
 * getMarkRects takes an element top and an element height and computes the corresponding
 * needed markRects
 */
-function getMarkRects(elemTop, elemHeight, attachTo) {
-    const top = attachTo
-        ? intrpCustomElem(elemTop, attachTo)
-        : intrpTop(elemTop);
-    return { top, height: scaleHeight(elemHeight)}
+function getMarkRects(elemTop, elemHeight) {
+    return { top: intrpTop(elemTop), height: scaleHeight(elemHeight)}
 }

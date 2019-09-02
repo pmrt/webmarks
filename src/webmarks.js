@@ -49,6 +49,8 @@ const defaultOpts = {
     // beforeUpdate callback will be invoked right before marks update
     // - `wrapper` is the immediate parent element of all the future marks
     beforeUpdate: noop,
+    // attachTo is an HTMLElement. If provided, it'll attach the wrapper to the
+    // `attachTo` element (as first child), instead of the document.body;
     attachTo: null,
 }
 
@@ -105,6 +107,11 @@ export class Webmarks {
         this.elems = elems;
         this.opts = {...defaultOpts, ...opts};
 
+        if (this.opts.attachTo && !isHTMLElement(this.opts.attachTo)) {
+            throw new TypeError(JSON.stringify(peek) + " is not an HTMLElement");
+        }
+
+
         this._createWrapper();
 
         if (!this.opts.alwaysVisible) {
@@ -142,9 +149,10 @@ export class Webmarks {
 
     _createWrapper() {
         const wrapper = this.wrapper = document.createElement('div');
+        const attachTo = this.opts.attachTo;
         wrapper.classList.add(this.opts.classes.wrapper);
 
-        if (this.opts.attachTo) {
+        if (attachTo) {
             attachTo.insertBefore(wrapper, attachTo.firstChild);
         } else {
             document.body.insertBefore(wrapper, document.body.firstChild);
@@ -155,7 +163,7 @@ export class Webmarks {
     * _createMarks handles each mark creation.
     */
     _createMarks() {
-        const rects = getMarksRects(this.elems, this.opts.attachTo);
+        const rects = getMarksRects(this.elems);
         this.marks = new Array(rects.length);
 
         this.opts.beforeCreation(this.wrapper);
@@ -179,7 +187,7 @@ export class Webmarks {
     * _updateMarks handles the mark repositioning
     */
     _updateMarks() {
-        const rects = getMarksRects(this.elems, this.opts.attachTo);
+        const rects = getMarksRects(this.elems);
 
         this.hide();
         this.opts.beforeUpdate(this.wrapper);

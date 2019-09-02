@@ -11,6 +11,7 @@
         * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
@@ -88,36 +89,8 @@
         const steps = document.getElementsByClassName('step-title');
         wm = new Webmarks(steps, opts);
 
-        function pageHeight(doc) {
-            let body = doc.body,
-                html = doc.documentElement;
-            return Math.max(
-                body.scrollHeight, body.offsetHeight, html.clientHeight,
-                html.scrollHeight, html.offsetHeight
-            );
-        }
-
         // TODO - Need a way to provide custom size for wrapper size. Give it
         // a size of ~600
-
-        function updateDemoHeights() {
-            let wrappers = document.getElementsByClassName('iframe-wrapper');
-            let demos = document.getElementsByClassName('iframe');
-            for (let i = 0; i < demos.length; i++) {
-                let demo = demos[i];
-                let wrapper = wrappers[i];
-
-                wrapper.style.opacity = '0'
-
-                let h = pageHeight(demo.contentDocument);
-                wrapper.style.height = h + 'px';
-
-                wrapper.style.opacity = '1';
-            }
-        }
-
-
-        //window.onload = updateDemoHeights;
     </script>
 </head>
 <body>

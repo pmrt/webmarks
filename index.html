@@ -23,6 +23,32 @@
             transition: opacity 1s;
         }
 
+        .tutorial-text > .sticky {
+            padding: 80px 40px;
+        }
+
+        .tutorial-text h1 {
+            font-size: 4em;
+            line-height: 1em;
+            color: #333;
+        }
+
+        .tutorial-text h3 {
+            font-size: 2em;
+            margin-top: 25px;
+            font-weight: 100;
+            color: #6b6b6b;
+        }
+
+        .sticky {
+            position: sticky;
+            top: 0;
+        }
+
+        .demo {
+            display: flex;
+        }
+
         iframe {
             border: none;
             height: 100%;
@@ -43,7 +69,7 @@
 
         function updateDemoHeights() {
             let wrappers = document.getElementsByClassName('iframe-wrapper');
-            let demos = document.getElementsByClassName('demo');
+            let demos = document.getElementsByClassName('iframe');
             for (let i = 0; i < demos.length; i++) {
                 let demo = demos[i];
                 let wrapper = wrappers[i];
@@ -61,8 +87,16 @@
     </script>
 <body>
     <section>
-        <div class="iframe-wrapper">
-            <iframe class="demo" src="demo/tutorial.html" frameborder="0"></iframe>
+        <div class="demo tutorial">
+            <div class="iframe-wrapper">
+                <iframe class="iframe" src="demo/tutorial.html" frameborder="0"></iframe>
+            </div>
+            <div class="tutorial-text">
+                <div class="sticky">
+                    <h1>Following a tutorial?</h1>
+                    <h3>Go straight to each step.</h3>
+                </div>
+            </div>
         </div>
     </section>
     <section>

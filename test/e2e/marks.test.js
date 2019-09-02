@@ -3,8 +3,6 @@ import './helpers';
 
 let driver, got, want;
 
-window.testOpts = { renderSizes: false };
-
 describe('marks', () => {
     afterEach(async () => {
         // chromedriver process won't close for some reason.

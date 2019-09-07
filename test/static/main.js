@@ -1,5 +1,6 @@
 const defaults = {
     renderSizes: true,
+    alwaysVisible: true,
 }
 
 let elems = document

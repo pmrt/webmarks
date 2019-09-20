@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const defaults = {\n    renderSizes: true,\n}\n\nlet elems = document\n    .getElementsByClassName('parent');\n\nconst init = window.init = (opts) => {\n    opts = opts || defaults;\n    window.wm = new Webmarks(elems, opts);\n}\n\n//# sourceURL=webpack:///./static/main.js?");
+eval("const defaults = {\n    renderSizes: true,\n    alwaysVisible: true,\n}\n\nlet elems = document\n    .getElementsByClassName('parent');\n\nconst init = window.init = (opts) => {\n    opts = opts || defaults;\n    window.wm = new Webmarks(elems, opts);\n}\n\n//# sourceURL=webpack:///./static/main.js?");
 
 /***/ })
 

@@ -17,8 +17,8 @@ const resizeWait = 500;
 const defaultOpts = {
     // classes contains the class names which will be used to create the marks
     classes: {
-        wrapper: 'webmarks',
-        mark: 'webmark',
+        wrapper: ['webmarks'],
+        mark: ['webmark'],
     },
     // alwaysVisible determines whether the marks will be visible or not when
     // user is not scrolling
@@ -56,6 +56,7 @@ const defaultOpts = {
     // beforeUpdate callback will be invoked right before marks update
     // - `wrapper` is the immediate parent element of all the future marks
     beforeUpdate: noop,
+    // TODO - Remove attachTo element and add an `stickVisibilityTo` option which will show the webmarks only when scrolling (Y-axis) within the boundaries of the provided element
     // attachTo is an HTMLElement. If provided, it'll attach the wrapper to the
     // `attachTo` element (as first child), instead of the document.body. The
     // provided element height will change to match window.innerHeight.
@@ -124,18 +125,18 @@ export class Webmarks {
 
         let pos = attachTo ? 'absolute' : 'fixed';
         injectCSS(
-        `.webmarks{`+
+        `.${this.opts.classes.wrapper}{`+
             `position:${pos};` +
             `top:0;`+
             `right:0;`+
             `bottom:0;`+
             `transition: opacity ${this.opts.opacityTransition}ms;`+
         `}`+
-        `.webmark{`+
+        `.${this.opts.classes.mark}{`+
             `position:absolute;`+
             `background:#333;`+
             `right:0;}`
-        );
+        , 'webmarks--style');
         this._createWrapper();
 
         if (!this.opts.alwaysVisible) {
@@ -174,11 +175,15 @@ export class Webmarks {
     _createWrapper() {
         const wrapper = this.wrapper = document.createElement('div');
         const attachTo = this.opts.attachTo;
-        wrapper.classList.add(this.opts.classes.wrapper);
+
+        each(this.opts.classes.wrapper, (i, name) => {
+            wrapper.classList.add(name);
+        });
 
         if (attachTo) {
             attachTo.insertBefore(wrapper, attachTo.firstChild);
             attachTo.style.height = window.innerHeight + 'px';
+            this.offsetTop = attachTo.getBoundingClientRect().top + window.scrollY;
         } else {
             document.body.insertBefore(wrapper, document.body.firstChild);
         }
@@ -195,7 +200,9 @@ export class Webmarks {
 
         each(rects, (i, rect) => {
             const mark = this.marks[i] = document.createElement('div');
-            mark.classList.add(this.opts.classes.mark);
+            each(this.opts.classes.mark, (idx, name) => {
+                mark.classList.add(name);
+            });
             mark.style.top = rect.top + 'px';
             if (this.opts.renderSizes) {
                 mark.style.height = rect.height + 'px';

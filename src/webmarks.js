@@ -56,7 +56,12 @@ const defaultOpts = {
     // beforeUpdate callback will be invoked right before marks update
     // - `wrapper` is the immediate parent element of all the future marks
     beforeUpdate: noop,
-    // TODO - Remove attachTo element and add an `stickVisibilityTo` option which will show the webmarks only when scrolling (Y-axis) within the boundaries of the provided element
+    // stickVisibilityTo is an HTMLElement. `stickVisibilityTo` is similar to
+    // position: sticky but with visibility: it'll show the webmarks only when
+    // scrolling (Y-axis) within the boundaries of the given element. In other
+    // words: webmarks only will show up when scrolling inside `stickVisibilityTo`
+    // element.
+    stickVisibilityTo: null,
     // opacityTransition of the wrapper
     opacityTransition: 100,
 }
@@ -64,6 +69,8 @@ const defaultOpts = {
 export class Webmarks {
     constructor(elems, opts) {
         this._onScroll = this._onScroll.bind(this);
+        this._onStickyScroll = this._onStickyScroll.bind(this);
+        this._onStickyAlwaysShowScroll = this._onStickyAlwaysShowScroll.bind(this);
 
         try {
             onReady(this._init, [elems, opts], this);
@@ -108,7 +115,7 @@ export class Webmarks {
 
         let peek = elems[0];
         if (!isHTMLElement(peek)) {
-            throw new TypeError(JSON.stringify(peek) + " is not an HTMLElement");
+            throw new TypeError(JSON.stringify(peek) + " (first element of the given elements) is not an HTMLElement");
         }
 
         this.elems = elems;
@@ -129,6 +136,8 @@ export class Webmarks {
         , 'webmarks--style');
         this._createWrapper();
 
+        const stickTo = this.opts.stickVisibilityTo;
+
         if (!this.opts.alwaysVisible) {
             // If user refreshes the page and the browser remembers the scroll it'll trigger the
             // '_onScroll' method, resulting in a weird behaviour where marks will be visible until
@@ -137,8 +146,21 @@ export class Webmarks {
             // in most OS')
             this.visible = isRememberingScroll;
             this.hideAfterScroll = debounce(this.hide, this.opts.hideAfter, this);
+
+            if (stickTo) {
+                this._computeStickToBounding(stickTo);
+                document.addEventListener('scroll', () => {
+                    window.requestAnimationFrame(this._onStickyScroll);
+                });
+            } else {
+                document.addEventListener('scroll', () => {
+                    window.requestAnimationFrame(this._onScroll);
+                });
+            }
+        } else if (stickTo) {
+            this._computeStickToBounding(stickTo);
             document.addEventListener('scroll', () => {
-                window.requestAnimationFrame(this._onScroll);
+                window.requestAnimationFrame(this._onStickyAlwaysShowScroll);
             });
         }
 
@@ -160,6 +182,11 @@ export class Webmarks {
     */
     hide() {
         this.visible = false;
+    }
+
+    isOutside() {
+        const scrolled = window.scrollY;
+        return scrolled < this.stickTop || this.stickBottom < scrolled;
     }
 
     _createWrapper() {
@@ -218,10 +245,50 @@ export class Webmarks {
         this.opts.onUpdate(this.marks, this.wrapper);
     }
 
+    _computeStickToBounding(stickTo) {
+        if (!isHTMLElement(stickTo)) {
+            throw new TypeError(JSON.stringify(stickTo) + "(stickVisibilityTo) is not an HTMLElement");
+        }
+
+        const rects = stickTo.getBoundingClientRect();
+        this.stickTop = rects.top + window.scrollY;
+        this.stickBottom = this.stickTop + rects.height;
+    }
+
     _onScroll() {
         if (this.visible) {
             this.hideAfterScroll();
         } else {
+            this.show();
+        }
+    }
+
+    _onStickyScroll() {
+        if (this.isOutside() && !this.visible) {
+            return;
+        } else if (!this.isOutside() && this.visible) {
+            this.hideAfterScroll();
+        } else if (/* !this.isOutside() && */ !this.visible) {
+            this.show();
+        } else /* this.isOutside() && this.visible */ {
+            this.hide();
+        }
+
+        // if (this.isOutside() && this.visible) {
+        //     this.hide();
+        // } else if (/* !this.isOutside() && */ this.visible) {
+        //     this.hideAfterScroll();
+        // } else if (!this.isOutSide() && !this.visible) {
+        //     this.show();
+        // } /* this.isOutSide() && !this.visible */
+    }
+
+    _onStickyAlwaysShowScroll() {
+        if ((this.isOutside() && !this.visible) || (!this.isOutside() && this.visible)) {
+            return;
+        } else if (this.isOutside() /* && this.visible */) {
+            this.hide();
+        } else /* !this.isOutside() && !this.visible */ {
             this.show();
         }
     }

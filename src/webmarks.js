@@ -162,7 +162,7 @@ export class Webmarks {
             // defaults opacity to false
             this.visible = false;
             this._computeStickToBounding(stickTo);
-            // trigger scroll once so it tweaks the visibility state. eg. If user refreshes the page and
+            // trigger onScroll once so it tweaks the visibility state. eg. If user refreshes the page and
             // browser is remembering the scroll the visibility will need to be updated.
             this._onStickyAlwaysShowScroll();
             document.addEventListener('scroll', () => {

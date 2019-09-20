@@ -56,7 +56,7 @@ describe('calculate marks tops', () => {
         expect(elemRects).toEqual([{top: 10, height: 100}, {top: 20, height: 100}, {top: 30, height: 100}]);
     });
 
-    test('getMarksProps uses cache', () => {
+    test('getMarksRects uses cache', () => {
         const elems = document.getElementsByClassName('test');
         expect(elemRects).toEqual([{top: 10, height: 100}, {top: 20, height: 100}, {top: 30, height: 100}]);
         // override cache

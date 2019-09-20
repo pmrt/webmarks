@@ -57,10 +57,6 @@ const defaultOpts = {
     // - `wrapper` is the immediate parent element of all the future marks
     beforeUpdate: noop,
     // TODO - Remove attachTo element and add an `stickVisibilityTo` option which will show the webmarks only when scrolling (Y-axis) within the boundaries of the provided element
-    // attachTo is an HTMLElement. If provided, it'll attach the wrapper to the
-    // `attachTo` element (as first child), instead of the document.body. The
-    // provided element height will change to match window.innerHeight.
-    attachTo: null,
     // opacityTransition of the wrapper
     opacityTransition: 100,
 }
@@ -118,15 +114,9 @@ export class Webmarks {
         this.elems = elems;
         this.opts = {...defaultOpts, ...opts};
 
-        const attachTo = this.opts.attachTo;
-        if (attachTo && !isHTMLElement(attachTo)) {
-            throw new TypeError(JSON.stringify(peek) + " is not an HTMLElement");
-        }
-
-        let pos = attachTo ? 'absolute' : 'fixed';
         injectCSS(
         `.${this.opts.classes.wrapper}{`+
-            `position:${pos};` +
+            `position:fixed;` +
             `top:0;`+
             `right:0;`+
             `bottom:0;`+
@@ -174,19 +164,12 @@ export class Webmarks {
 
     _createWrapper() {
         const wrapper = this.wrapper = document.createElement('div');
-        const attachTo = this.opts.attachTo;
 
         each(this.opts.classes.wrapper, (i, name) => {
             wrapper.classList.add(name);
         });
 
-        if (attachTo) {
-            attachTo.insertBefore(wrapper, attachTo.firstChild);
-            attachTo.style.height = window.innerHeight + 'px';
-            this.offsetTop = attachTo.getBoundingClientRect().top + window.scrollY;
-        } else {
-            document.body.insertBefore(wrapper, document.body.firstChild);
-        }
+        document.body.insertBefore(wrapper, document.body.firstChild);
     }
 
     /*

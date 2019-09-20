@@ -232,7 +232,6 @@ export class Webmarks {
     _updateMarks() {
         const rects = getMarksRects(this.elems, this.cachedElemRects);
 
-        this.hide();
         this.opts.beforeUpdate(this.wrapper);
 
         each(rects, (i, rect) => {
@@ -242,7 +241,6 @@ export class Webmarks {
             this.opts.onUpdateMark(mark, this.wrapper);
         });
 
-        this.show();
         this.opts.onUpdate(this.marks, this.wrapper);
     }
 

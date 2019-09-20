@@ -274,14 +274,6 @@ export class Webmarks {
         } else /* this.isOutside() && this.visible */ {
             this.hide();
         }
-
-        // if (this.isOutside() && this.visible) {
-        //     this.hide();
-        // } else if (/* !this.isOutside() && */ this.visible) {
-        //     this.hideAfterScroll();
-        // } else if (!this.isOutSide() && !this.visible) {
-        //     this.show();
-        // } /* this.isOutSide() && !this.visible */
     }
 
     _onStickyAlwaysShowScroll() {

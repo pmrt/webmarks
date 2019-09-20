@@ -1,12 +1,13 @@
 import {
     getMarksRects,
-    elemRects,
 } from '../marks';
 import {
     page,
 } from '../ratio';
 
 describe('calculate marks tops', () => {
+    let cachedRects = new Array();
+
     beforeAll(() => {
         document.head.innerHTML =
             '<style>' +
@@ -39,29 +40,27 @@ describe('calculate marks tops', () => {
         window.innerHeight = 0;
         page.height = 0;
 
-        elemRects[0] = undefined;
-        elemRects[1] = undefined;
-        elemRects[2] = undefined;
+        cachedRects = new Array();
     });
 
     test('get marks tops = [1, 2, 3] and cache the element tops', () => {
         const elems = document.getElementsByClassName('test');
         // cache should be empty
-        expect(elemRects).toEqual([]);
-        const got = getMarksRects(elems);
+        expect(cachedRects).toEqual([]);
+        const got = getMarksRects(elems, cachedRects);
         // mark rects
         const want = [{top: 1, height: 10}, {top: 2, height: 10}, {top: 3, height: 10}];
         expect(got).toEqual(want);
         // cache shouldn't be empty (fixed elem rects)
-        expect(elemRects).toEqual([{top: 10, height: 100}, {top: 20, height: 100}, {top: 30, height: 100}]);
+        expect(cachedRects).toEqual([{top: 10, height: 100}, {top: 20, height: 100}, {top: 30, height: 100}]);
     });
 
     test('getMarksRects uses cache', () => {
         const elems = document.getElementsByClassName('test');
-        expect(elemRects).toEqual([{top: 10, height: 100}, {top: 20, height: 100}, {top: 30, height: 100}]);
+        expect(cachedRects).toEqual([{top: 10, height: 100}, {top: 20, height: 100}, {top: 30, height: 100}]);
         // override cache
-        elemRects[2].top = 50;
-        const got = getMarksRects(elems)
+        cachedRects[2].top = 50;
+        const got = getMarksRects(elems, cachedRects);
         const want = [{top: 1, height: 10}, {top: 2, height: 10}, {top: 5, height: 10}];
         expect(got).toEqual(want);
     });

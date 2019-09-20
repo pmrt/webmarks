@@ -119,6 +119,7 @@ export class Webmarks {
         }
 
         this.elems = elems;
+        this.cachedElemRects = new Array(elems.length);
         this.opts = {...defaultOpts, ...opts};
 
         injectCSS(
@@ -203,7 +204,7 @@ export class Webmarks {
     * _createMarks handles each mark creation.
     */
     _createMarks() {
-        const rects = getMarksRects(this.elems);
+        const rects = getMarksRects(this.elems, this.cachedElemRects);
         this.marks = new Array(rects.length);
 
         this.opts.beforeCreation(this.wrapper);
@@ -229,7 +230,7 @@ export class Webmarks {
     * _updateMarks handles the mark repositioning
     */
     _updateMarks() {
-        const rects = getMarksRects(this.elems);
+        const rects = getMarksRects(this.elems, this.cachedElemRects);
 
         this.hide();
         this.opts.beforeUpdate(this.wrapper);

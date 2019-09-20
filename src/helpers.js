@@ -20,14 +20,24 @@ export function onReady(cb, args, self) {
 }
 
 export function each(arr, cb, self) {
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0, len = arr.length; i < len; i++) {
         cb.call(self, i, arr[i], arr);
     }
 }
 
-export function injectCSS(styles) {
-    const s = document.createElement('style');
-    s.type = "text/css";
+export function injectCSS(styles, id) {
+    let s = document.createElement('style');
+
+    // skip if the element with id = `id` already exists
+    if (!!document.getElementById(id)) {
+        return s = null;
+    }
+
+    if (!!id) {
+        s.setAttribute('id', id);
+    }
+
+    s.setAttribute('type', 'text/css');
     s.innerText = styles;
 
     const links = document.getElementsByTagName('link');

@@ -14,3 +14,15 @@
 .webmarks, .webmark {
     width: 15px;
 }
+
+/*
+    thread webmarks
+*/
+
+.thread-webmark {
+    background: #3a0026;
+}
+
+.thread-webmarks {
+    background: #9e5253;
+}

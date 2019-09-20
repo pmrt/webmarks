@@ -1,7 +1,10 @@
-.step {
-    padding: 5px;
+.steps {
     margin: 0 auto;
     max-width: 350px;
+}
+
+.step {
+    padding: 5px;
 }
 
 .shapes {
@@ -31,4 +34,10 @@
 .rect, .rect-x2, .square , .square-x2 {
     margin: 10px 20px;
     background: #f1f1f1;
+}
+
+.text-shape {
+    background: #ccc;
+    height: 10px;
+    margin: 10px;
 }

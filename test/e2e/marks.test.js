@@ -6,6 +6,9 @@ let driver, got, want;
 describe('marks', () => {
     afterEach(async () => {
         // chromedriver process won't close for some reason.
+        // https://github.com/SeleniumHQ/selenium/issues/6317
+        // Seems a chromedriver bug, close the terminal after running the
+        // tests so the chromedriver processes (one for each run) terminates.
         await driver.close();
         await driver.quit();
     });

@@ -20,8 +20,55 @@
         }
 
         /*
+            Demo
+        */
+
+        .demo {
+            display: flex;
+        }
+
+        .demo .content {
+            margin-bottom: 50px;
+            padding: 60px 0 0 0;
+        }
+
+        .content {
+            position: relative;
+        }
+
+        .demo > .content,
+        .demo > .text,
+        .demo > .article {
+            flex: 1;
+        }
+
+        .demo > .text .sticky {
+            padding: 80px 40px;
+        }
+
+        .demo > .text h1 {
+            font-size: 4em;
+            line-height: 1em;
+        }
+
+        .demo > .text h3 {
+            font-size: 1.6em;
+            margin-top: 25px;
+            font-weight: 100;
+        }
+
+        /*
             Tutorial demo
         */
+
+        .steps {
+            margin: 0 auto;
+            max-width: 350px;
+        }
+
+        .step {
+            padding: 5px;
+        }
 
         .tutorial {
             background-color: #fff;
@@ -47,6 +94,10 @@
             Thread demo
         */
 
+        .thread {
+            background-color: #3a0027;
+        }
+
         .thread h1,
         .thread h3 {
             color: #fff;
@@ -60,16 +111,12 @@
             color: #9e5353;
         }
 
-        .thread {
-            background-color: #3a0027;
-        }
-
         .thread > .content {
             padding: 100px 0;
         }
 
         .thread .comment-wrapper {
-            max-width: 30vw;
+            max-width: 400px;
             margin: 0 auto;
         }
 
@@ -104,36 +151,47 @@
         }
 
         /*
-            Demo
+            Article
         */
-
-        .demo {
-            display: flex;
+        .article {
+            color: #fff;
+            background-color: #1b1722;
         }
 
-        .demo > .content {
-            margin-bottom: 50px;
-            padding: 60px 0 0 0;
+        .article h1 {
+            max-width: 8em;
         }
 
-        .demo > .content,
-        .demo > .text {
-            flex: 1;
+        .article .highlight {
+            color: #dbbb5f;
         }
 
-        .demo > .text .sticky {
-            padding: 80px 40px;
+        .article > .content {
+           padding: 100px 0;
         }
 
-        .demo > .text h1 {
-            font-size: 4em;
-            line-height: 1em;
+        .article article {
+            margin: 0 auto;
+            max-width: 500px;
+            padding: 20px;
         }
 
-        .demo > .text h3 {
-            font-size: 1.6em;
-            margin-top: 25px;
-            font-weight: 100;
+        .article .rect,
+        .article .square,
+        .article .square-x2 {
+            margin: 10px 0;
+        }
+
+        .article .square-left {
+            margin: 10px 20px 10px 0;
+        }
+
+        .article .square-right {
+            margin: 10px 0px 10px 20px;
+        }
+
+        .article .paragraph {
+            padding: 15px 0;
         }
 
         /*
@@ -174,6 +232,18 @@
                     },
                     elements: document.getElementsByClassName('parent'),
                 },
+                // article webmarks
+                  {
+                    opts: {
+                        ...commonOpts,
+                        stickVisibilityTo: document.getElementById('demo-3'),
+                        classes: {
+                            wrapper: ['webmarks', 'article-webmarks'],
+                            mark: ['webmark', 'article-webmark'],
+                        }
+                    },
+                    elements: document.getElementsByClassName('snippet'),
+                },
             ];
 
             const len = multimarks.length;
@@ -205,9 +275,9 @@
                             </div>
                             <div class="shapes">
                                 <div class="rects">
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
                                 </div>
                             </div>
                             <div class="shapes">
@@ -215,16 +285,16 @@
                             </div>
                             <div class="shapes">
                                 <div class="rects">
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
                                 </div>
                             </div>
                             <div class="shapes">
                                 <div class="rects">
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
                                 </div>
                             </div>
                         </div>
@@ -232,16 +302,16 @@
                             <h3 class="step-title">Step 2</h3>
                             <div class="shapes">
                                 <div class="rects">
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
                                 </div>
                             </div>
                             <div class="shapes">
                                 <div class="rects">
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
                                 </div>
                             </div>
                             <div class="shapes">
@@ -259,30 +329,30 @@
                                 <div class="square-x2"></div>
                             </div>
                             <div class="rects">
-                                <div class="rect-x2"></div>
-                                <div class="rect-x2"></div>
-                                <div class="rect-x2"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
                             </div>
                             <div class="rects">
-                                <div class="rect-x2"></div>
-                                <div class="rect-x2"></div>
-                                <div class="rect-x2"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
                             </div>
                         </div>
                         <div class="step">
                             <h3 class="step-title">Step 4</h3>
                             <div class="shapes">
                                 <div class="rects">
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
                                 </div>
                             </div>
                             <div class="shapes">
                                 <div class="rects">
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
                                 </div>
                             </div>
                             <div class="shapes">
@@ -298,16 +368,16 @@
                             <h3 class="step-title">Step 5</h3>
                             <div class="shapes">
                                 <div class="rects">
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
                                 </div>
                             </div>
                             <div class="shapes">
                                 <div class="rects">
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
-                                    <div class="rect-x2"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
                                 </div>
                             </div>
                         </div>
@@ -428,8 +498,318 @@
                 </div>
                 <div class="text">
                     <div class="sticky">
-                        <h1>Reading a <span class="highlight">comment</span> thread?</h1>
+                        <h1>Browsing <span class="highlight">comment</span> threads?</h1>
                         <h3>Easily find parent comments.</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="demo-3">
+            <div class="demo article">
+                <div class="content">
+                    <article>
+                        <div class="square-x2"></div>
+                        <div class="paragraph">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                            <div class="shapes">
+                                <div class="rects">
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                </div>
+                                <div class="square square-right"></div>
+                            </div>
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                            <div class="paragraph">
+                                <div class="snippet">
+                                    <div class="lines">
+                                        <div class="line">
+                                            <div class="token token-1"></div>
+                                            <div class="keyword-1"></div>
+                                            <div class="token token-2"></div>
+                                        </div>
+                                        <div class="line">
+                                            <div class="property"></div>
+                                            <div class="token token-1"></div>
+                                        </div>
+                                        <div class="line">
+                                            <div class="property"></div>
+                                            <div class="token token-1"></div>
+                                        </div>
+                                        <div class="line">
+                                            <div class="property"></div>
+                                            <div class="token token-1"></div>
+                                        </div>
+                                        <div class="line">
+                                            <div class="token token-2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="lines">
+                                        <div class="line">
+                                            <div class="token token-1"></div>
+                                            <div class="keyword-1"></div>
+                                            <div class="token token-2"></div>
+                                        </div>
+                                        <div class="line">
+                                            <div class="property"></div>
+                                            <div class="token token-1"></div>
+                                        </div>
+                                        <div class="line">
+                                            <div class="property"></div>
+                                            <div class="token token-1"></div>
+                                        </div>
+                                        <div class="line">
+                                            <div class="token token-2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                            <div class="shapes">
+                                <div class="square square-left"></div>
+                                <div class="rects">
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                </div>
+                            </div>
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="snippet">
+                                <div class="lines">
+                                    <div class="line">
+                                        <div class="token token-1"></div>
+                                        <div class="keyword-1"></div>
+                                        <div class="token token-2"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="property"></div>
+                                        <div class="token token-1"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="property"></div>
+                                        <div class="token token-1"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="token token-2"></div>
+                                    </div>
+                                </div>
+                                <div class="lines">
+                                    <div class="line">
+                                        <div class="token token-1"></div>
+                                        <div class="keyword-1"></div>
+                                        <div class="token token-2"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="property"></div>
+                                        <div class="token token-1"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="token token-2"></div>
+                                    </div>
+                                </div>
+                                <div class="lines">
+                                    <div class="line">
+                                        <div class="token token-1"></div>
+                                        <div class="keyword-1"></div>
+                                        <div class="token token-2"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="property"></div>
+                                        <div class="token token-1"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="property"></div>
+                                        <div class="token token-1"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="property"></div>
+                                        <div class="token token-1"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="property"></div>
+                                        <div class="token token-1"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="token token-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                            <div class="shapes">
+                                <div class="square square-left"></div>
+                                <div class="rects">
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                </div>
+                            </div>
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                            <div class="shapes">
+                                <div class="rects">
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                </div>
+                                <div class="square square-right"></div>
+                            </div>
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="square-x2"></div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+                        <div class="paragraph">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="snippet">
+                                <div class="lines">
+                                    <div class="line">
+                                        <div class="token token-1"></div>
+                                        <div class="keyword-1"></div>
+                                        <div class="token token-2"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="property"></div>
+                                        <div class="token token-1"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="property"></div>
+                                        <div class="token token-1"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="property"></div>
+                                        <div class="token token-1"></div>
+                                    </div>
+                                    <div class="line">
+                                        <div class="token token-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="shapes">
+                                <div class="square square-left"></div>
+                                <div class="rects">
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                    <div class="rect"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="paragraph">
+                            <div class="rects">
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                                <div class="rect"></div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="text">
+                    <div class="sticky">
+                        <h1>Reading <span class="highlight">articles</span> with snippets?</h1>
+                        <h3>Straight to the code.</h3>
                     </div>
                 </div>
             </div>

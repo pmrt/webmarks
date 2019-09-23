@@ -10,12 +10,12 @@ import {
 * getMarksRects determines the `elems` elements fixed tops, caching the result for future use (eg. resizing
 * will need marks tops to be recalculated for the new visible window height but element tops is always the
 * same), then in the same iteration it'll interpolate each element top between the fixed page height and
-* the visible window height, returning anarray with all the corresponding marks tops for the current visible
+* the visible window height, returning an array with all the corresponding marks tops for the current visible
 * window height.
 *
 * Cached element rects will be stored into the provided `cachedRects` array. It caches elements fixed rects
 * for future use as they will never change. Whenever the visible window changes, new marks tops need to be
-* updated. Caching this will avoid retrieving the fixed elems rects in an update.
+* updated. Caching this will avoid re-computing the fixed elems rects in an update.
 **/
 export function getMarksRects(elems, cachedRects) {
     let rects = new Array(elems.length);

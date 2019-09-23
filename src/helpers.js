@@ -33,7 +33,7 @@ export function injectCSS(styles, id) {
         return s = null;
     }
 
-    if (!!id) {
+    if (id) {
         s.setAttribute('id', id);
     }
 

@@ -2,7 +2,6 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const rootPath = path.join(__dirname, '../');
 const entryPath = path.join(rootPath, `/src`);
@@ -18,12 +17,24 @@ module.exports = {
             path.join(entryPath, '/static/css/styles.css'),
         ]
     },
+    devtool: 'eval',
     output: {
         filename: `[name].min.js`,
         path: distPath,
         publicPath: distPath,
     },
-    mode: 'production',
+    mode: 'development',
+    devServer: {
+        host: '127.0.0.1',
+        contentBase: rootPath,
+        publicPath: distPath,
+        watchContentBase: true,
+        compress: true,
+        port: 8004,
+        https: false,
+        open: true,
+        hot: true,
+    },
     module: {
         rules: [
             {
@@ -37,20 +48,17 @@ module.exports = {
                 use: {
                     loader: 'html-loader',
                     options: {
-                        minimize: true,
+                        minimize: false,
                     }
                 }
             }
         ]
     },
 
-    optimization: {
-      minimizer: [new OptimizeCSSAssetsPlugin({})],
-    },
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/static/index.html",
-            filename: "../index.html"
+            filename: "index.html"
         }),
         new MiniCssExtractPlugin({
           // Options similar to the same options in webpackOptions.output

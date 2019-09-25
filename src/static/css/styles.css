@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Serif';
+}
+
+body {
+    background-color: #ccc;
+}
+
+/*
+    Demo
+*/
+
+.demo {
+    display: flex;
+}
+
+.demo .content {
+    margin-bottom: 50px;
+    padding: 60px 0 0 0;
+}
+
+.content {
+    position: relative;
+}
+
+.demo > .content,
+.demo > .text,
+.demo > .article {
+    flex: 1;
+}
+
+.demo > .text .sticky {
+    padding: 80px 40px;
+}
+
+.demo > .text h1 {
+    font-size: 4em;
+    line-height: 1em;
+}
+
+.demo > .text h3 {
+    font-size: 1.6em;
+    margin-top: 25px;
+    font-weight: 100;
+}
+
+/*
+    Tutorial demo
+*/
+
+.steps {
+    margin: 0 auto;
+    max-width: 350px;
+}
+
+.step {
+    padding: 5px;
+}
+
+.tutorial {
+    background-color: #fff;
+}
+
+.tutorial h1,
+.tutorial h3 {
+    color: #333;
+}
+
+.tutorial .highlight {
+    color: #544c96;
+}
+
+.tutorial .step-title {
+    padding: 32px 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+
+/*
+    Thread demo
+*/
+
+.thread {
+    background-color: #3a0027;
+}
+
+.thread h1,
+.thread h3 {
+    color: #fff;
+}
+
+.thread h1 {
+    max-width: 5em;
+}
+
+.thread .highlight {
+    color: #9e5353;
+}
+
+.thread > .content {
+    padding: 100px 0;
+}
+
+.thread .comment-wrapper {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+
+.thread .comment-wrapper + .comment-wrapper {
+    margin-top: 50px;
+}
+
+.thread .comment {
+    background: #fff;
+    padding: 10px;
+    margin: 15px;
+    position: relative;
+}
+
+.thread .comment:first-child:before {
+    width: 0;
+    height: 0;
+    border-top: 25px solid white;
+    border-right: 0px solid transparent;
+    border-left: 25px solid transparent;
+    font-size: 0;
+    line-height: 0;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -25px;
+}
+
+.thread .comment + .comment {
+    margin-left: 40px;
+}
+
+/*
+    Article
+*/
+.article {
+    color: #fff;
+    background-color: #1b1722;
+}
+
+.article h1 {
+    max-width: 8em;
+}
+
+.article .highlight {
+    color: #dbbb5f;
+}
+
+.article > .content {
+   padding: 100px 0;
+}
+
+.article article {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.article .rect,
+.article .square,
+.article .square-x2 {
+    margin: 10px 0;
+}
+
+.article .square-left {
+    margin: 10px 20px 10px 0;
+}
+
+.article .square-right {
+    margin: 10px 0px 10px 20px;
+}
+
+.article .paragraph {
+    padding: 15px 0;
+}
+
+/*
+    Utils
+*/
+
+.sticky {
+    position: sticky;
+    top: 0;
+}

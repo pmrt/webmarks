@@ -21,7 +21,6 @@ module.exports = {
     output: {
         filename: `[name].min.js`,
         path: distPath,
-        publicPath: distPath,
     },
     mode: 'production',
     module: {

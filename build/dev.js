@@ -5,7 +5,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const rootPath = path.join(__dirname, '../');
 const entryPath = path.join(rootPath, `/src`);
-const distPath = path.join(rootPath, '/public');
 
 module.exports = {
     context: rootPath,
@@ -20,14 +19,12 @@ module.exports = {
     devtool: 'eval',
     output: {
         filename: `[name].min.js`,
-        path: distPath,
-        publicPath: distPath,
+        path: rootPath,
     },
     mode: 'development',
     devServer: {
         host: '127.0.0.1',
         contentBase: rootPath,
-        publicPath: distPath,
         watchContentBase: true,
         compress: true,
         port: 8004,
@@ -63,7 +60,7 @@ module.exports = {
         new MiniCssExtractPlugin({
           // Options similar to the same options in webpackOptions.output
           // all options are optional
-          filename: 'css/bundle.css',
+          filename: 'bundle.css',
           ignoreOrder: false,
         }),
     ]

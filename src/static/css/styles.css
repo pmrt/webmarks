@@ -15,11 +15,11 @@ body {
 
 .demo {
     display: flex;
+    flex-direction: column;
 }
 
 .demo .content {
-    margin-bottom: 50px;
-    padding: 60px 0 0 0;
+    margin-bottom: 3.13em;
 }
 
 .content {
@@ -32,18 +32,27 @@ body {
     flex: 1;
 }
 
+.demo > .text {
+    order: 1;
+    text-align: center;
+}
+
+.demo > .content {
+    order: 2;
+}
+
 .demo > .text .sticky {
-    padding: 80px 40px;
+    padding: 5.1em 2.5em;
 }
 
 .demo > .text h1 {
-    font-size: 4em;
+    font-size: 2.5em;
     line-height: 1em;
 }
 
 .demo > .text h3 {
-    font-size: 1.6em;
-    margin-top: 25px;
+    font-size: 1em;
+    margin-top: 1.57em;
     font-weight: 100;
 }
 
@@ -53,11 +62,11 @@ body {
 
 .steps {
     margin: 0 auto;
-    max-width: 350px;
+    max-width: 84vmin;
 }
 
 .step {
-    padding: 5px;
+    padding: 0.31em;
 }
 
 .tutorial {
@@ -74,8 +83,8 @@ body {
 }
 
 .tutorial .step-title {
-    padding: 32px 0;
-    font-size: 18px;
+    padding: 2em 0;
+    font-size: 1.13em;
     text-transform: uppercase;
     letter-spacing: 0.15em;
 }
@@ -93,16 +102,12 @@ body {
     color: #fff;
 }
 
-.thread h1 {
-    max-width: 5em;
-}
-
 .thread .highlight {
     color: #9e5353;
 }
 
 .thread > .content {
-    padding: 100px 0;
+    padding: 6.25em 0;
 }
 
 .thread .comment-wrapper {
@@ -112,13 +117,13 @@ body {
 
 
 .thread .comment-wrapper + .comment-wrapper {
-    margin-top: 50px;
+    margin-top: 3.13em;
 }
 
 .thread .comment {
     background: #fff;
-    padding: 10px;
-    margin: 15px;
+    padding: 0.62em;
+    margin: 0.94em;
     position: relative;
 }
 
@@ -137,7 +142,7 @@ body {
 }
 
 .thread .comment + .comment {
-    margin-left: 40px;
+    margin-left: 2.5em;
 }
 
 /*
@@ -157,31 +162,31 @@ body {
 }
 
 .article > .content {
-   padding: 100px 0;
+   padding: 6.25em 0;
 }
 
 .article article {
     margin: 0 auto;
     max-width: 500px;
-    padding: 20px;
+    padding: 1.25em;
 }
 
 .article .rect,
 .article .square,
 .article .square-x2 {
-    margin: 10px 0;
+    margin: 0.63em 0;
 }
 
 .article .square-left {
-    margin: 10px 20px 10px 0;
+    margin: 0.63em 1.25em 0.63em 0;
 }
 
 .article .square-right {
-    margin: 10px 0px 10px 20px;
+    margin: 0.63em 0px 1.25em 0.63em;
 }
 
 .article .paragraph {
-    padding: 15px 0;
+    padding: 0.94em 0;
 }
 
 /*
@@ -191,4 +196,60 @@ body {
 .sticky {
     position: sticky;
     top: 0;
+}
+
+@media only screen and (min-width: 636px) {
+    .demo {
+        flex-direction: row;
+    }
+
+    .demo > .text {
+        text-align: initial;
+    }
+
+    .demo > .text h1 {
+        font-size: 2.5em;
+    }
+
+    .demo > .text h3 {
+        font-size: 1em;
+    }
+
+    .demo > .text {
+        order: 2;
+    }
+
+    .demo > .content {
+        order: 1;
+    }
+
+    .steps {
+        max-width: 42vmax;
+    }
+}
+
+@media only screen and (min-width: 860px) {
+    .demo > .text h1 {
+        font-size: 3.6em;
+    }
+
+    .demo > .text h3 {
+        font-size: 1.2em;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .steps {
+        max-width: 28vmax;
+    }
+}
+
+@media only screen and (min-width: 1500px) {
+    .demo > .text h1 {
+        font-size: 5.2vw;
+    }
+
+    .demo > .text h3 {
+        font-size: 1.8vw;
+    }
 }

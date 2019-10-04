@@ -315,7 +315,7 @@ body {
 }
 
 .article > .content {
-   padding: 6.25em 0;
+   padding: 6.25em 0 0;
 }
 
 .article article {
@@ -354,13 +354,20 @@ body {
 .big-title {
     padding: 3em 0 .6em;
     background: #fff;
+}
+
+.big-title,
+.big-title-2 {
     text-align: center;
 }
 
 .big-title > h1,
 .big-title-2 > h1{
-    font-size: 7vw;
     position: relative;
+}
+
+.big-title > h1 {
+    font-size: 7vw;
 }
 
 .big-title > h1 {
@@ -383,13 +390,13 @@ body {
 }
 
 .big-title-2 {
-    padding: 6em;
-    margin-bottom: -80px;
+    padding: 2em;
+    margin: 0;
 }
 
 .big-title-2 > h1 {
     color: #fff;
-    font-size: 4em;
+    font-size: 12vw;
 }
 
 .big-title-2 > h1:after {
@@ -399,16 +406,19 @@ body {
     height: .25em;
     position: absolute;
     bottom: -10px;
-    left: 0;
+    left: calc(50% - 1.3em);
 }
 
 footer .link-cards {
     display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
 footer .link-card {
     transform: scale(1);
     transition: transform 250ms ease-in-out;
+    flex: 1;
 }
 
 footer .link-card:hover {
@@ -416,12 +426,14 @@ footer .link-card:hover {
     z-index: 9999;
 }
 
-footer .link-cards > .github {
+footer .link-card.github {
     color: #fff;
     background: #000;
-    height: 200px;
-    margin-top: 100px;
-    padding: 2em;
+    margin-top: 16px;
+    max-height: 210px;
+    padding: 1em;
+    order: 2;
+    font-size: .6em;
 }
 
 footer .link-cards .github > img {
@@ -429,46 +441,48 @@ footer .link-cards .github > img {
     margin-top: 14px;
 }
 
-footer .link-cards > .github > h1 {
+footer .link-cards .github > h1 {
     font-weight: 900;
-    font-size: 1.6em;
-    width: 300px;
+    max-width: 300px;
 }
 
-footer .link-cards > .github,
+footer .link-cards .docs,
+footer .link-cards .github,
 footer .credits-card {
-    width: 400px;
+    max-width: initial;
 }
 
-footer .link-cards > .docs {
+footer .link-cards .docs {
+    padding: 1em;
     background: #ffd864;
-    height: 400px;
-    width: 400px;
-    padding: 5em;
     color: #3e3e3e;
+    z-index: 2;
+    order: 1;
 }
 
-footer .link-cards > .docs > h2 {
+footer .link-cards .docs > h2 {
     text-transform: uppercase;
     letter-spacing: .03em;
 }
 
-footer .link-cards > .docs > h1 {
+footer .link-cards .docs > h1 {
     padding: 1em 0;
 }
 
-footer .link-cards > .docs > hr {
-    margin: 1em 0 0;
-    border: 0.3px solid #0a0a0a;
+footer .link-cards .docs > hr {
+    margin: 1em auto;
+    border: .5px solid #0a0a0a;
     width: 4.5em;
 }
 
 footer .credits-card {
     background: #fff;
-    top: -100px;
+    top: 10px;
     position: relative;
-    padding: 2.5em;
+    padding: 1em 2em;
     text-align: center;
+    margin-bottom: 10px;
+    z-index: 1;
 }
 
 footer .credits-card .heart {
@@ -486,9 +500,10 @@ footer .credits-card p {
 }
 
 footer .cards-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
+    padding: 5vw;
 }
+
+
 
 @media only screen and (min-width: 400px) {
     .nav {
@@ -519,6 +534,9 @@ footer .cards-wrapper {
         font-size: 3vw;
     }
 
+    footer .cards-wrapper {
+        padding: 20vw;
+    }
 }
 
 @media only screen and (min-width: 636px) {
@@ -596,7 +614,7 @@ footer .cards-wrapper {
     .hero .logo {
         display: block;
     }
- 
+
     .notebook {
         display: block;
         margin-left: -6em;
@@ -609,6 +627,10 @@ footer .cards-wrapper {
 
     .big-title {
         padding: 6em 4em 3em;
+    }
+
+    .big-title,
+    .big-title-2 {
         text-align: initial;
     }
 
@@ -618,6 +640,19 @@ footer .cards-wrapper {
 
     .big-title > h1 {
         font-size: 3em;
+    }
+
+    .big-title-2 {
+        padding: 6em;
+        margin-bottom: -80px;
+    }
+
+    .big-title-2 > h1 {
+        font-size: 4em;
+    }
+
+    .big-title-2 > h1:after {
+        left: 0;
     }
 
     .demo > .text {
@@ -646,6 +681,47 @@ footer .cards-wrapper {
 
     .steps {
         max-width: 42vw;
+    }
+
+    .article > .content {
+       padding: 6.25em 0;
+    }
+
+    footer .link-cards {
+        flex-direction: row;
+        text-align: initial;
+    }
+
+    footer .link-cards .docs > hr {
+        margin: 1em 0 0;
+    }
+
+    footer .link-cards .github,
+    footer .link-card .docs {
+        order: initial;
+    }
+
+    footer .link-cards .docs {
+        max-width: 400px;
+        padding: 5em;
+    }
+
+    footer .link-cards .github {
+        margin-top: 100px;
+        padding: 2em;
+        font-size: .75em;
+    }
+
+    footer .credits-card {
+        top: -102px;
+        padding: 2.5em;
+        margin: 0;
+        text-align: left;
+    }
+
+    footer .cards-wrapper {
+        padding: 5vw;
+        margin: 0 auto;
     }
 }
 
@@ -708,6 +784,10 @@ footer .cards-wrapper {
 
     .steps {
         max-width: 28vw;
+    }
+
+    footer .cards-wrapper {
+        padding: 0 13em;
     }
 }
 

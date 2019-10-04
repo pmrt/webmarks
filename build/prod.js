@@ -2,8 +2,8 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const rootPath = path.join(__dirname, '../');
 const entryPath = path.join(rootPath, `/src`);
@@ -48,9 +48,9 @@ module.exports = {
             },
         ]
     },
-
     optimization: {
-      minimizer: [new OptimizeCSSAssetsPlugin({})],
+        minimize: true,
+        minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -63,8 +63,5 @@ module.exports = {
           filename: 'css/bundle.css',
           ignoreOrder: false,
         }),
-        // new CopyWebpackPlugin([
-        //     { from: './src/static/img/*.png', to: './public', flatten: true },
-        // ]),
     ]
 }

@@ -22,6 +22,7 @@ module.exports = {
     output: {
         filename: `[name].min.js`,
         path: distPath,
+        publicPath: 'https://pmrt.github.io/webmarks/public/',
     },
     mode: 'production',
     module: {
@@ -62,8 +63,8 @@ module.exports = {
           filename: 'css/bundle.css',
           ignoreOrder: false,
         }),
-        new CopyWebpackPlugin([
-            { from: './src/static/img/*.png', to: './public', flatten: true },
-        ]),
+        // new CopyWebpackPlugin([
+        //     { from: './src/static/img/*.png', to: './public', flatten: true },
+        // ]),
     ]
 }

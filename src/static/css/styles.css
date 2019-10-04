@@ -3,10 +3,122 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Serif';
+    font-weight: 100;
 }
 
 body {
+    border-top: 4px solid #ffd864;
+    border-bottom: 4px solid #ffd864;
     background-color: #ccc;
+}
+
+.container section {
+    background: #fff;
+}
+
+/*
+    Hero
+*/
+.hero {
+    background: #ebebeb;
+}
+
+.hero > .container {
+    display: flex;
+}
+
+.hero .nav img {
+    height: 16px;
+    width: 16px;
+}
+
+.hero > .container > .content {
+    padding: 5em;
+    flex: 2;
+}
+
+.hero .notebook {
+    padding: 12em 0;
+    margin-left: -5.3em;
+    margin-right: 5.3em;
+    flex: 1;
+}
+
+.hero .notebook > img {
+    height: 20em;
+}
+
+.hero .logo {
+    position: absolute;
+}
+
+.hero .logo > img {
+    height: 4.33em;
+}
+
+.hero .text {
+    padding: 4em 0 .1em;
+}
+
+
+.hero .text > h1,
+.hero .text > h3 {
+    color: #252525
+}
+
+.hero .text > h1 {
+    font-size: 4em;
+    display: inline-block;
+    position: relative;
+    font-weight: 900;
+}
+
+.hero .text > h1:after {
+    position: absolute;
+    content: '';
+    height: 7px;
+    left: 5px;
+    right: 5px;
+    bottom: -2px;
+    background: #ffd864;
+}
+
+.hero .text > h3 {
+    padding: 1.2em 0;
+    font-size: 1.7em;
+    width: 17em;
+}
+
+.hero .scroll-call > h3 {
+    display: inline-block;
+    padding: .4em 1.4em;
+    text-transform: uppercase;
+    font-size: .9em;
+    color: #7b7b7b;
+    letter-spacing: .03em;
+    border: 1px solid #7b7b7b;
+}
+
+.nav-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #454545;
+    padding: 0 1.4em;
+}
+
+.nav {
+    background: rgb(255,218,217);
+    background: linear-gradient(90deg, rgba(255,218,217,1) 0%, rgba(255,216,96,1) 100%);
+    width: 50vw;
+    height: 2em;
+    padding: .3em;
+    font-size: 1.3em;
+    display: flex;
+    justify-content: flex-end;
 }
 
 /*
@@ -43,6 +155,11 @@ body {
 
 .demo > .text .sticky {
     padding: 5.1em 2.5em;
+}
+
+.demo > .text h1,
+.demo > .text h1 > span {
+    font-weight: 900;
 }
 
 .demo > .text h1 {
@@ -83,6 +200,7 @@ body {
 }
 
 .tutorial .step-title {
+    font-weight: 900;
     padding: 2em 0;
     font-size: 1.13em;
     text-transform: uppercase;
@@ -150,6 +268,9 @@ body {
 */
 .article {
     color: #fff;
+}
+
+.article, footer {
     background-color: #1b1722;
 }
 
@@ -197,6 +318,146 @@ body {
     position: sticky;
     top: 0;
 }
+
+.big-title {
+    padding: 6em 4em 3em;
+}
+
+.big-title > h1,
+.big-title-2 > h1{
+    font-size: 3em;
+    position: relative;
+}
+
+.big-title > h1 {
+    font-weight: 900;
+    display: inline-block;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.big-title > h1:after {
+    content: '';
+    background: #ffd864;
+    width: 5em;
+    height: .6em;
+    position: absolute;
+    bottom: 0;
+    right: -22px;
+    z-index: -1;
+
+}
+
+.big-title-2 {
+    padding: 6em;
+    margin-bottom: -80px;
+}
+
+.big-title-2 > h1 {
+    color: #fff;
+    font-size: 4em;
+}
+
+.big-title-2 > h1:after {
+    content: '';
+    background: #ffd864;
+    width: 3em;
+    height: .25em;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+}
+
+footer .link-cards {
+    display: flex;
+}
+
+footer .link-card {
+    transform: scale(1);
+    transition: transform 250ms ease-in-out;
+}
+
+footer .link-card:hover {
+    transform: scale(1.1);
+    z-index: 9999;
+}
+
+footer .link-cards > .github {
+    color: #fff;
+    background: #000;
+    height: 200px;
+    margin-top: 100px;
+    padding: 2em;
+}
+
+footer .link-cards .github > img {
+    filter: invert(1);
+    margin-top: 14px;
+}
+
+footer .link-cards > .github > h1 {
+    font-weight: 900;
+    font-size: 1.6em;
+    width: 300px;
+}
+
+footer .link-cards > .github,
+footer .credits-card {
+    width: 400px;
+}
+
+footer .link-cards > .docs {
+    background: #ffd864;
+    height: 400px;
+    width: 400px;
+    padding: 5em;
+    color: #3e3e3e;
+}
+
+footer .link-cards > .docs > h2 {
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+footer .link-cards > .docs > h1 {
+    padding: 1em 0;
+}
+
+footer .link-cards > .docs > hr {
+    margin: 1em 0 0;
+    border: 0.3px solid #0a0a0a;
+    width: 4.5em;
+}
+
+footer .credits-card {
+    background: #fff;
+    top: -100px;
+    height: 100px;
+    position: relative;
+    padding: 2em;
+    text-align: center;
+}
+
+footer .credits-card .heart {
+    color: #f1cc5f;
+    margin-right: .3em;
+}
+
+footer .credits-card img.github {
+    margin-left: .3em;
+    vertical-align: middle;
+}
+
+footer .credits-card p {
+    display: inline-block;
+}
+
+footer .cards-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 
 @media only screen and (min-width: 636px) {
     .demo {

@@ -48,7 +48,11 @@ module.exports = {
                         minimize: false,
                     }
                 }
-            }
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: ['file-loader'],
+            },
         ]
     },
 
